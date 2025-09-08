@@ -4,8 +4,7 @@ A vertical survival game built in Unity. Players ascend a procedurally generated
 
 ## Features
 - Procedural tower generation
-- Modular upgrade system
-- Spell-based combat
+- Modular upgrade systemt
 - Dynamic hazards and pickups
 - UI feedback and tracking
 
