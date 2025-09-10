@@ -8,8 +8,13 @@ public class cameraController : MonoBehaviour
     [SerializeField] int lockVertMax;
     [SerializeField] bool invertY;
 
+    [SerializeField] float zoomSpeed;
+    [SerializeField] float minZoom;
+    [SerializeField] float maxZoom;
+
 
     float rotX;
+    Camera cam;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +22,12 @@ public class cameraController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        cam = GetComponent<Camera>();
+        if(cam == null)
+        {
+            cam = GetComponentInChildren<Camera>();
+        }
     }
 
 
@@ -45,8 +56,21 @@ public class cameraController : MonoBehaviour
 
         transform.parent.Rotate(Vector3.up * mouseX);
 
+    }
 
+    void Zoom()
+    {
+        if (cam == null)
+        {
+            return;
+        }
 
+        float Scroll = Input.GetAxis("Mouse ScrollWheel");
 
+        if (Mathf.Abs(Scroll) > 0.01f)
+        {
+            cam.fieldOfView -= Scroll * zoomSpeed;
+            cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, minZoom, maxZoom);
+        }
     }
 }
