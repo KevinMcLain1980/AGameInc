@@ -10,6 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public float fastRunSpeed = 12f;
     public float rotationSpeed = 120f;
 
+    [Header("Jump Settings")]
+    public float jumpForce = 28f;
+    public LayerMask groundLayer;
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+
     [Header("Stamina Settings")]
     public float maxStamina = 100f;
     public float staminaDrainRate = 20f;
@@ -27,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isBreathing = false;
     private float breathingTimer = 0f;
     private bool justStoppedFastRunning = false;
+    private bool isJumping = false;
 
     private Animator animator;
     private Rigidbody rb;
@@ -50,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         HandleRotation();
         HandleStamina();
         HandleDiveRoll();
+        HandleJump();
     }
 
     void HandleMovement()
@@ -78,20 +86,22 @@ public class PlayerMovement : MonoBehaviour
             speed = walkSpeed * 0.5f;
             animator.SetBool(isRunningFastParam, false);
             animator.SetBool(isRunningParam, false);
-            animator.SetBool("IsRunningBackwards", true); // ← trigger backward animation
+            animator.SetBool("IsRunningBackwards", true);
         }
         else
         {
             speed = 0f;
             animator.SetBool(isRunningFastParam, false);
             animator.SetBool(isRunningParam, false);
-            animator.SetBool("IsRunningBackwards", false); // ← return to Idle
+            animator.SetBool("IsRunningBackwards", false);
         }
 
+        if (!isJumping)
+        {
+            Vector3 move = transform.forward * vertical * speed;
+            rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+        }
 
-
-        Vector3 move = transform.forward * vertical * speed;
-        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
         animator.SetFloat(speedParam, Mathf.Abs(vertical * speed));
 
         if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0) && animator.GetBool(isRunningFastParam))
@@ -110,6 +120,29 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(Vector3.up * horizontal * rotationSpeed * Time.deltaTime);
         }
     }
+
+    void HandleJump()
+    {
+        bool jumpPressed = Input.GetKeyDown(KeyCode.Space);
+        bool grounded = IsGrounded();
+
+        Debug.Log($"JumpPressed: {jumpPressed}, IsGrounded: {grounded}");
+
+        if (jumpPressed && grounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            animator.SetTrigger("Jump");
+        }
+    }
+
+
+
+    bool IsGrounded()
+    {
+        Ray ray = new Ray(transform.position + Vector3.up * 0.1f, Vector3.down);
+        return Physics.Raycast(ray, 1.2f, groundLayer);
+    }
+
 
     void HandleStamina()
     {
@@ -137,11 +170,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (isBreathing)
         {
-            animator.SetFloat("IdleSpeed", 0.5f); // Slower breathing
+            animator.SetFloat("IdleSpeed", 0.5f);
         }
         else
         {
-            animator.SetFloat("IdleSpeed", 1f); // Reset to normal
+            animator.SetFloat("IdleSpeed", 1f);
         }
     }
 

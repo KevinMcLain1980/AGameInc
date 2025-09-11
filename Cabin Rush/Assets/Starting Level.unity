@@ -157,6 +157,12 @@ MonoBehaviour:
   runSpeed: 6
   fastRunSpeed: 12
   rotationSpeed: 120
+  jumpForce: 20
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  groundCheck: {fileID: 2120040564}
+  groundCheckRadius: 0.2
   maxStamina: 100
   staminaDrainRate: 20
   staminaRecoveryRate: 10
@@ -646,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6bc97b0cef0ac5e45a0c195a73482514, type: 3}
       propertyPath: m_Name
-      value: Ch42_nonPBR
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6bc97b0cef0ac5e45a0c195a73482514, type: 3}
       propertyPath: m_Layer
@@ -714,9 +720,9 @@ GameObject:
   - component: {fileID: 2088822272}
   - component: {fileID: 2088822275}
   - component: {fileID: 2088822276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -744,7 +750,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 761d8e1f988ed2345a28312145c79c6e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -815,7 +821,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!64 &2088822276
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -847,9 +853,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2120040564}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: GroundCheck
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -863,7 +869,7 @@ Transform:
   m_GameObject: {fileID: 2120040563}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.25, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
