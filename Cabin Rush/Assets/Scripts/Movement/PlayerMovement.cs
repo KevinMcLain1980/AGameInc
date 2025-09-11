@@ -1,181 +1,156 @@
 using UnityEngine;
-using System.Collections;
 
-[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider), typeof(PlayerStateManager))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float walkSpeed = 5f;
-    public float sprintSpeed = 8f;
-    public float crouchSpeed = 2.5f;
-    public float jumpForce = 5f;
-    public float slideForce = 10f;
-    public float slideDuration = 1f;
-    public float climbSpeed = 3f;
+    public float walkSpeed = 3f;
+    public float runSpeed = 6f;
+    public float fastRunSpeed = 12f;
+    public float rotationSpeed = 120f;
 
-    [Header("Ground Check")]
-    public Transform groundCheck;
-    public LayerMask groundMask;
-    public float groundCheckRadius = 0.4f;
+    [Header("Stamina Settings")]
+    public float maxStamina = 100f;
+    public float staminaDrainRate = 20f;
+    public float staminaRecoveryRate = 10f;
+    public float breathingDuration = 5f;
 
-    [Header("Crouch Settings")]
-    public float crouchHeight = 1f;
-    public float standHeight = 2f;
+    [Header("Animation Parameters")]
+    public string speedParam = "Speed";
+    public string isRunningParam = "IsRunning";
+    public string isRunningFastParam = "IsRunningFast";
+    public string isBreathingParam = "IsBreathing";
+    public string diveRollParam = "DiveRoll";
 
-    [Header("Climb Settings")]
-    public float climbRayDistance = 1f;
-    public LayerMask climbableMask;
+    private float currentStamina;
+    private bool isBreathing = false;
+    private float breathingTimer = 0f;
+    private bool justStoppedFastRunning = false;
 
-    [Header("Animation")]
-    public Animator animator;
-
+    private Animator animator;
     private Rigidbody rb;
-    private CapsuleCollider col;
-    private PlayerStateManager stateManager;
-
-    private float moveSpeed;
-    private bool isGrounded;
-    private bool isSliding;
-    private bool isClimbing;
-    private bool isCrouching;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        col = GetComponent<CapsuleCollider>();
-        stateManager = GetComponent<PlayerStateManager>();
-        moveSpeed = walkSpeed;
+        currentStamina = maxStamina;
+
+        animator.SetBool(isRunningParam, false);
+        animator.SetBool(isRunningFastParam, false);
+        animator.SetBool(isBreathingParam, false);
+        animator.SetFloat(speedParam, 0f);
+        animator.SetFloat("IdleSpeed", 1f);
     }
 
     void Update()
     {
-        HandleGroundCheck();
-        HandleMovementInput();
-        HandleJump();
-        HandleCrouch();
-        HandleSlide();
-        HandleClimb();
-        UpdateAnimator();
+        HandleMovement();
+        HandleRotation();
+        HandleStamina();
+        HandleDiveRoll();
     }
 
-    void HandleGroundCheck()
+    void HandleMovement()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
-    }
+        float vertical = Input.GetAxisRaw("Vertical");
+        bool isHoldingUp = vertical > 0;
+        bool isHoldingDown = vertical < 0;
+        bool isHoldingShift = Input.GetKey(KeyCode.LeftShift);
 
-    void HandleMovementInput()
-    {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-        Vector3 move = transform.right * x + transform.forward * z;
+        float speed = 0f;
 
-        if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && !isSliding)
-            moveSpeed = sprintSpeed;
-        else if (isCrouching)
-            moveSpeed = crouchSpeed;
-        else
-            moveSpeed = walkSpeed;
-
-        if (!isSliding && !isClimbing)
+        if (isHoldingUp && isHoldingShift && currentStamina > 0)
         {
-            rb.linearVelocity = new Vector3(move.x * moveSpeed, rb.linearVelocity.y, move.z * moveSpeed);
+            speed = fastRunSpeed;
+            animator.SetBool(isRunningFastParam, true);
+            animator.SetBool(isRunningParam, true);
         }
-
-        if (move.magnitude > 0 && isGrounded)
+        else if (isHoldingUp && !isHoldingShift)
         {
-            if (isCrouching)
-                stateManager.SetState(MovementState.Crouching);
-            else if (moveSpeed == sprintSpeed)
-                stateManager.SetState(MovementState.Sprinting);
-            else
-                stateManager.SetState(MovementState.Walking);
+            speed = runSpeed;
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetBool(isRunningParam, true);
         }
-        else if (isGrounded)
+        else if (isHoldingDown)
         {
-            stateManager.SetState(MovementState.Idle);
-        }
-    }
-
-    void HandleJump()
-    {
-        if (Input.GetButtonDown("Jump") && isGrounded && !isClimbing)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            stateManager.SetState(MovementState.Jumping);
-        }
-    }
-
-    void HandleCrouch()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            col.height = crouchHeight;
-            isCrouching = true;
-            stateManager.SetState(MovementState.Crouching);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            col.height = standHeight;
-            isCrouching = false;
-            stateManager.SetState(MovementState.Walking);
-        }
-    }
-
-    void HandleSlide()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && isGrounded && !isSliding)
-        {
-            StartCoroutine(Slide());
-        }
-    }
-
-    IEnumerator Slide()
-    {
-        isSliding = true;
-        stateManager.SetState(MovementState.Sliding);
-        rb.AddForce(transform.forward * slideForce, ForceMode.Impulse);
-        yield return new WaitForSeconds(slideDuration);
-        isSliding = false;
-        stateManager.SetState(MovementState.Walking);
-    }
-
-    void HandleClimb()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, climbRayDistance, climbableMask))
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                isClimbing = true;
-                rb.useGravity = false;
-                rb.linearVelocity = new Vector3(0, climbSpeed, 0);
-                stateManager.SetState(MovementState.Climbing);
-            }
-            else
-            {
-                isClimbing = false;
-                rb.useGravity = true;
-            }
+            speed = walkSpeed * 0.5f;
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetBool(isRunningParam, false);
+            animator.SetBool("IsRunningBackwards", true); // ← trigger backward animation
         }
         else
         {
-            isClimbing = false;
-            rb.useGravity = true;
+            speed = 0f;
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetBool(isRunningParam, false);
+            animator.SetBool("IsRunningBackwards", false); // ← return to Idle
+        }
+
+
+
+        Vector3 move = transform.forward * vertical * speed;
+        rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+        animator.SetFloat(speedParam, Mathf.Abs(vertical * speed));
+
+        if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0) && animator.GetBool(isRunningFastParam))
+        {
+            justStoppedFastRunning = true;
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetBool(isRunningParam, false);
         }
     }
 
-    void UpdateAnimator()
+    void HandleRotation()
     {
-        if (animator == null) return;
-        animator.SetInteger("MovementState", (int)stateManager.currentState);
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        if (horizontal != 0)
+        {
+            transform.Rotate(Vector3.up * horizontal * rotationSpeed * Time.deltaTime);
+        }
     }
 
-    void OnDrawGizmosSelected()
+    void HandleStamina()
     {
-        if (groundCheck != null)
+        bool isFastRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0;
+
+        if (isFastRunning && currentStamina > 0)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+            currentStamina -= staminaDrainRate * Time.deltaTime;
+        }
+        else
+        {
+            currentStamina += staminaRecoveryRate * Time.deltaTime;
+        }
+
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+        if ((currentStamina <= 0 || justStoppedFastRunning) && !isBreathing)
+        {
+            isBreathing = true;
+            breathingTimer = breathingDuration;
+            animator.SetBool(isBreathingParam, true);
+            animator.CrossFade("BreathingIdle", 0f);
+            justStoppedFastRunning = false;
+        }
+
+        if (isBreathing)
+        {
+            animator.SetFloat("IdleSpeed", 0.5f); // Slower breathing
+        }
+        else
+        {
+            animator.SetFloat("IdleSpeed", 1f); // Reset to normal
+        }
+    }
+
+    void HandleDiveRoll()
+    {
+        bool isDiveRolling = Input.GetKeyDown(KeyCode.LeftControl) && Input.GetAxisRaw("Vertical") > 0;
+        if (isDiveRolling)
+        {
+            animator.SetTrigger(diveRollParam);
         }
     }
 }
