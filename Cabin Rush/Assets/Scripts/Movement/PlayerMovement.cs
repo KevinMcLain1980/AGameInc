@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     private float breathingTimer = 0f;
     private bool justStoppedFastRunning = false;
     private bool isJumping = false;
+    private bool isCrouching = false;
+    private bool isCrouchWalking = false;
 
     private Animator animator;
     private Rigidbody rb;
@@ -58,44 +60,73 @@ public class PlayerMovement : MonoBehaviour
         HandleStamina();
         HandleDiveRoll();
         HandleJump();
+        HandleCrouchToggle();
     }
 
     void HandleMovement()
     {
         float vertical = Input.GetAxisRaw("Vertical");
+        vertical = Mathf.Abs(vertical) < 0.01f ? 0f : vertical;
+
         bool isHoldingUp = vertical > 0;
         bool isHoldingDown = vertical < 0;
         bool isHoldingShift = Input.GetKey(KeyCode.LeftShift);
 
         float speed = 0f;
 
-        if (isHoldingUp && isHoldingShift && currentStamina > 0)
+        if (isCrouching)
         {
-            speed = fastRunSpeed;
-            animator.SetBool(isRunningFastParam, true);
-            animator.SetBool(isRunningParam, true);
-        }
-        else if (isHoldingUp && !isHoldingShift)
-        {
-            speed = runSpeed;
-            animator.SetBool(isRunningFastParam, false);
-            animator.SetBool(isRunningParam, true);
-        }
-        else if (isHoldingDown)
-        {
-            speed = walkSpeed * 0.5f;
-            animator.SetBool(isRunningFastParam, false);
-            animator.SetBool(isRunningParam, false);
-            animator.SetBool("IsRunningBackwards", true);
-        }
-        else
-        {
-            speed = 0f;
+            // Crouch movement
+            if (isHoldingUp)
+            {
+                speed = walkSpeed * 0.33f;
+                animator.SetBool("IsCrouchWalking", true);
+            }
+            else
+            {
+                speed = 0f;
+                animator.SetBool("IsCrouchWalking", false);
+            }
+
+            // Do NOT touch IsCrouching here—it’s handled in HandleCrouchToggle()
             animator.SetBool(isRunningFastParam, false);
             animator.SetBool(isRunningParam, false);
             animator.SetBool("IsRunningBackwards", false);
         }
+        else
+        {
+            // Standing movement
+            if (isHoldingUp && isHoldingShift && currentStamina > 0)
+            {
+                speed = fastRunSpeed;
+                animator.SetBool(isRunningFastParam, true);
+                animator.SetBool(isRunningParam, true);
+            }
+            else if (isHoldingUp && !isHoldingShift)
+            {
+                speed = runSpeed;
+                animator.SetBool(isRunningFastParam, false);
+                animator.SetBool(isRunningParam, true);
+            }
+            else if (isHoldingDown)
+            {
+                speed = walkSpeed * 0.5f;
+                animator.SetBool(isRunningFastParam, false);
+                animator.SetBool(isRunningParam, false);
+                animator.SetBool("IsRunningBackwards", true);
+            }
+            else
+            {
+                speed = 0f;
+                animator.SetBool(isRunningFastParam, false);
+                animator.SetBool(isRunningParam, false);
+                animator.SetBool("IsRunningBackwards", false);
+            }
 
+            animator.SetBool("IsCrouchWalking", false);
+        }
+
+        // Apply movement
         if (!isJumping)
         {
             Vector3 move = transform.forward * vertical * speed;
@@ -175,6 +206,20 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetFloat("IdleSpeed", 1f);
+        }
+    }
+
+    void HandleCrouchToggle()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isCrouching = !isCrouching;
+            animator.SetBool("IsCrouching", isCrouching);
+
+            // Optional: adjust collider height
+            CapsuleCollider col = GetComponent<CapsuleCollider>();
+            col.height = isCrouching ? 1f : 2f;
+            col.center = new Vector3(0, isCrouching ? 0.5f : 1f, 0);
         }
     }
 
