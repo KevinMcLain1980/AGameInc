@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public string isRunningFastParam = "IsRunningFast";
     public string isBreathingParam = "IsBreathing";
     public string diveRollParam = "DiveRoll";
+    public string slideTriggerParam = "SlideTrigger";
 
     private float currentStamina;
     private bool isBreathing = false;
@@ -36,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool isCrouching = false;
     private bool isCrouchWalking = false;
+    public bool isSliding = false;
 
     private Animator animator;
     private Rigidbody rb;
@@ -61,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         HandleDiveRoll();
         HandleJump();
         HandleCrouchToggle();
+        HandleSlide();
     }
 
     void HandleMovement()
@@ -74,28 +78,26 @@ public class PlayerMovement : MonoBehaviour
 
         float speed = 0f;
 
+        // Determine movement speed and animation flags
         if (isCrouching)
         {
-            // Crouch movement
             if (isHoldingUp)
             {
-                speed = walkSpeed * 0.33f;
-                animator.SetBool("IsCrouchWalking", true);
+                speed = walkSpeed * 0.33f; // Crouch walk speed
+                isCrouchWalking = true;
             }
             else
             {
                 speed = 0f;
-                animator.SetBool("IsCrouchWalking", false);
+                isCrouchWalking = false;
             }
 
-            // Do NOT touch IsCrouching here—it’s handled in HandleCrouchToggle()
             animator.SetBool(isRunningFastParam, false);
             animator.SetBool(isRunningParam, false);
             animator.SetBool("IsRunningBackwards", false);
         }
         else
         {
-            // Standing movement
             if (isHoldingUp && isHoldingShift && currentStamina > 0)
             {
                 speed = fastRunSpeed;
@@ -123,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("IsRunningBackwards", false);
             }
 
-            animator.SetBool("IsCrouchWalking", false);
+            isCrouchWalking = false;
         }
 
         // Apply movement
@@ -133,8 +135,18 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
         }
 
+        // Update Animator parameters
         animator.SetFloat(speedParam, Mathf.Abs(vertical * speed));
+        animator.SetBool("IsCrouchWalking", isCrouchWalking);
 
+        // Optional: use crouch walking for stamina drain or stealth logic
+        if (isCrouchWalking)
+        {
+            // Example: stamina drain while crouch walking
+            currentStamina -= staminaDrainRate * Time.deltaTime * 0.5f;
+        }
+
+        // Handle fast run exit
         if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0) && animator.GetBool(isRunningFastParam))
         {
             justStoppedFastRunning = true;
@@ -220,6 +232,52 @@ public class PlayerMovement : MonoBehaviour
             CapsuleCollider col = GetComponent<CapsuleCollider>();
             col.height = isCrouching ? 1f : 2f;
             col.center = new Vector3(0, isCrouching ? 0.5f : 1f, 0);
+        }
+    }
+
+    void HandleSlide()
+    {
+        if (isSliding) return;
+
+        bool slidePressed = Input.GetKeyDown(KeyCode.LeftAlt);
+        bool isRunning = animator.GetBool(isRunningParam);
+
+        if (slidePressed && isRunning)
+        {
+            isSliding = true;
+
+            // Trigger slide animation
+            animator.SetTrigger(slideTriggerParam);
+            animator.SetFloat("SlideSpeed", 0.5f); // Optional: slow down animation
+
+            // Apply forward slide movement
+            Vector3 slideDirection = transform.forward * runSpeed * 2.5f;
+            rb.linearVelocity = new Vector3(slideDirection.x, rb.linearVelocity.y, slideDirection.z);
+
+            StartCoroutine(ResetSlide());
+        }
+    }
+
+    IEnumerator ResetSlide()
+    {
+        yield return new WaitForSeconds(1.5f);
+        isSliding = false;
+        animator.ResetTrigger(slideTriggerParam);
+        animator.Play("Idle"); 
+
+        bool stillHoldingUp = Input.GetAxisRaw("Vertical") > 0;
+
+        if (stillHoldingUp)
+        {
+            animator.SetBool(isRunningParam, true);
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetFloat(speedParam, runSpeed);
+        }
+        else
+        {
+            animator.SetBool(isRunningParam, false);
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetFloat(speedParam, 0f);
         }
     }
 
