@@ -7,7 +7,11 @@
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\damage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\users\\loko4\\onedrive\\desktop\\cabin-rush\\agameinc\\cabin rush\\assets\\scripts\\movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\users\\loko4\\onedrive\\desktop\\cabin-rush\\agameinc\\cabin rush\\assets\\scripts\\idamage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\idamage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\assets\\scripts\\movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -46,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,15 +62,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Damage.cs",
-              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Damage.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Damage.cs",
-              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Damage.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Damage.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAD4vyoAAAAHAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IDamage.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IDamage.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\IDamage.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IDamage.cs",
+              "RelativeToolTip": "Assets\\Scripts\\IDamage.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAzwAQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T04:05:21.933Z",
+              "WhenOpened": "2025-09-14T04:40:56.721Z",
               "EditorCaption": ""
             },
             {
@@ -78,6 +82,19 @@
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Damage.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Damage.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Damage.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Damage.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Damage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T04:05:21.933Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
@@ -87,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PlayerMovement.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
@@ -95,12 +112,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T22:20:03.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-13T22:20:03.106Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "RebindManager.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\RebindManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\RebindManager.cs",
@@ -112,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "playerInput.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\playerInput.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\playerInput.cs",
@@ -124,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "buttonFunctions.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\buttonFunctions.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\buttonFunctions.cs",
@@ -136,7 +152,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "gameManager.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\gameManager.cs",
@@ -148,7 +164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "PickupStats.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\PickupStats.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PickupStats.cs",
@@ -160,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "IPickup.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IPickup.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\IPickup.cs",
@@ -172,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "cameraController.cs",
               "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\cameraController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\cameraController.cs",
