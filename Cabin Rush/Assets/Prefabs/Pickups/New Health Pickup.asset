@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f20cd5dd25e2124f8fe8a3a7e18f6a8, type: 3}
   m_Name: New Health Pickup
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  healthAmount: 1
+  model: {fileID: 5559561047657990189, guid: 54b4c6cbb2830a14c8e605a2f43973d4, type: 3}
+  healthAmount: 5
