@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public string isRunningFastParam = "IsRunningFast";
     public string isBreathingParam = "IsBreathing";
     public string diveRollParam = "DiveRoll";
+    public string slideTriggerParam = "SlideTrigger";
 
     private float currentStamina;
     private bool isBreathing = false;
@@ -36,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool isCrouching = false;
     private bool isCrouchWalking = false;
+    public bool isSliding = false;
+    private bool isDiveRolling = false;
+    private float diveRollCooldown = 2f;
+    private float diveRollTimer = 0f;
+    public string diveRollTriggerParam = "DiveRollTrigger";
 
     private Animator animator;
     private Rigidbody rb;
@@ -61,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         HandleDiveRoll();
         HandleJump();
         HandleCrouchToggle();
+        HandleSlide();
     }
 
     void HandleMovement()
@@ -72,61 +80,87 @@ public class PlayerMovement : MonoBehaviour
         bool isHoldingDown = vertical < 0;
         bool isHoldingShift = Input.GetKey(KeyCode.LeftShift);
 
+        if (isCrouching && isHoldingDown)
+        {
+            isCrouching = false;
+            animator.SetBool("IsCrouching", false);
+            StartCoroutine(SmoothUncrouch());
+
+            float walkspeed = walkSpeed * 0.5f;
+            Vector3 move = -transform.forward * walkspeed;
+            rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
+
+            animator.SetBool("IsRunningBackwards", true);
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsRunningFast", false);
+            animator.SetBool("IsCrouchWalking", false);
+            animator.SetFloat(speedParam, walkspeed);
+            return;
+        }
+
+        if (!isHoldingUp && !isHoldingDown)
+        {
+            animator.SetBool("IsRunningBackwards", false);
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsRunningFast", false);
+            animator.SetBool("IsCrouchWalking", false);
+            animator.SetFloat(speedParam, 0f);
+            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            return;
+        }
+
         float speed = 0f;
 
         if (isCrouching)
         {
-            // Crouch movement
             if (isHoldingUp)
             {
                 speed = walkSpeed * 0.33f;
-                animator.SetBool("IsCrouchWalking", true);
+                isCrouchWalking = true;
             }
             else
             {
                 speed = 0f;
-                animator.SetBool("IsCrouchWalking", false);
+                isCrouchWalking = false;
             }
 
-            // Do NOT touch IsCrouching here—it’s handled in HandleCrouchToggle()
-            animator.SetBool(isRunningFastParam, false);
-            animator.SetBool(isRunningParam, false);
             animator.SetBool("IsRunningBackwards", false);
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsRunningFast", false);
+            animator.SetBool("IsCrouchWalking", isCrouchWalking);
         }
         else
         {
-            // Standing movement
             if (isHoldingUp && isHoldingShift && currentStamina > 0)
             {
                 speed = fastRunSpeed;
-                animator.SetBool(isRunningFastParam, true);
-                animator.SetBool(isRunningParam, true);
+                animator.SetBool("IsRunningFast", true);
+                animator.SetBool("IsRunning", true);
             }
             else if (isHoldingUp && !isHoldingShift)
             {
                 speed = runSpeed;
-                animator.SetBool(isRunningFastParam, false);
-                animator.SetBool(isRunningParam, true);
+                animator.SetBool("IsRunningFast", false);
+                animator.SetBool("IsRunning", true);
             }
             else if (isHoldingDown)
             {
                 speed = walkSpeed * 0.5f;
-                animator.SetBool(isRunningFastParam, false);
-                animator.SetBool(isRunningParam, false);
                 animator.SetBool("IsRunningBackwards", true);
+                animator.SetBool("IsRunning", false);
+                animator.SetBool("IsRunningFast", false);
             }
             else
             {
                 speed = 0f;
-                animator.SetBool(isRunningFastParam, false);
-                animator.SetBool(isRunningParam, false);
                 animator.SetBool("IsRunningBackwards", false);
+                animator.SetBool("IsRunning", false);
+                animator.SetBool("IsRunningFast", false);
             }
 
             animator.SetBool("IsCrouchWalking", false);
         }
 
-        // Apply movement
         if (!isJumping)
         {
             Vector3 move = transform.forward * vertical * speed;
@@ -135,6 +169,13 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat(speedParam, Mathf.Abs(vertical * speed));
 
+        // 🔧 Optional stamina drain for crouch walking
+        if (isCrouchWalking)
+        {
+            currentStamina -= staminaDrainRate * Time.deltaTime * 0.5f;
+        }
+
+        // 🔧 Handle fast run exit
         if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0) && animator.GetBool(isRunningFastParam))
         {
             justStoppedFastRunning = true;
@@ -208,7 +249,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("IdleSpeed", 1f);
         }
     }
-
     void HandleCrouchToggle()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -223,12 +263,134 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void HandleSlide()
+    {
+        if (isSliding) return;
+
+        bool slidePressed = Input.GetKeyDown(KeyCode.LeftAlt);
+        bool isRunning = animator.GetBool(isRunningParam);
+
+        if (slidePressed && isRunning)
+        {
+            isSliding = true;
+
+            // Trigger slide animation
+            animator.SetTrigger(slideTriggerParam);
+            animator.SetFloat("SlideSpeed", 0.5f); // Optional: slow down animation
+
+            // Apply forward slide movement
+            Vector3 slideDirection = transform.forward * runSpeed * 2.5f;
+            rb.linearVelocity = new Vector3(slideDirection.x, rb.linearVelocity.y, slideDirection.z);
+
+            StartCoroutine(ResetSlide());
+        }
+    }
+
+    IEnumerator ResetSlide()
+    {
+        yield return new WaitForSeconds(1.5f);
+        isSliding = false;
+        animator.ResetTrigger(slideTriggerParam);
+        animator.Play("Idle"); 
+
+        bool stillHoldingUp = Input.GetAxisRaw("Vertical") > 0;
+
+        if (stillHoldingUp)
+        {
+            animator.SetBool(isRunningParam, true);
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetFloat(speedParam, runSpeed);
+        }
+        else
+        {
+            animator.SetBool(isRunningParam, false);
+            animator.SetBool(isRunningFastParam, false);
+            animator.SetFloat(speedParam, 0f);
+        }
+    }
+    IEnumerator SmoothUncrouch()
+    {
+        CapsuleCollider col = GetComponent<CapsuleCollider>();
+        float duration = 0.1f;
+        float elapsed = 0f;
+
+        float startHeight = col.height;
+        float targetHeight = 2f;
+
+        Vector3 startCenter = col.center;
+        Vector3 targetCenter = new Vector3(0, 1f, 0);
+
+        while (elapsed < duration)
+        {
+            col.height = Mathf.Lerp(startHeight, targetHeight, elapsed / duration);
+            col.center = Vector3.Lerp(startCenter, targetCenter, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        col.height = targetHeight;
+        col.center = targetCenter;
+
+        // ✅ Snap player to ground after uncrouch
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 2f, groundLayer))
+        {
+            Vector3 pos = transform.position;
+            pos.y = hit.point.y;
+            transform.position = pos;
+        }
+    }
+
     void HandleDiveRoll()
     {
-        bool isDiveRolling = Input.GetKeyDown(KeyCode.LeftControl) && Input.GetAxisRaw("Vertical") > 0;
-        if (isDiveRolling)
+        if (isDiveRolling) return;
+
+        bool divePressed = Input.GetKeyDown(KeyCode.X);
+        bool isIdleOrRunning = animator.GetBool(isRunningParam) || animator.GetFloat(speedParam) == 0f;
+
+        if (divePressed && isIdleOrRunning)
         {
-            animator.SetTrigger(diveRollParam);
+            isDiveRolling = true;
+            animator.SetTrigger(diveRollTriggerParam);
+
+            // Apply forward roll movement
+            Vector3 rollDirection = transform.forward * runSpeed * 2f;
+            rb.linearVelocity = new Vector3(rollDirection.x, rb.linearVelocity.y, rollDirection.z);
+
+            StartCoroutine(ResetDiveRoll());
+        }
+    }
+
+    IEnumerator ResetDiveRoll()
+    {
+        // Wait for animation to finish
+        yield return new WaitForSeconds(1.2f); // Match Dive Roll animation length
+
+        // Wait for movement to settle
+        yield return new WaitForSeconds(0.8f); // Optional: allow physics to stabilize
+
+        isDiveRolling = false;
+
+        // Transition based on input
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        if (vertical > 0)
+        {
+            animator.SetBool(isRunningParam, true);
+            animator.SetBool("IsRunningBackwards", false);
+            animator.SetFloat(speedParam, runSpeed);
+        }
+        else if (vertical < 0)
+        {
+            animator.SetBool("IsRunningBackwards", true);
+            animator.SetBool(isRunningParam, false);
+            animator.SetFloat(speedParam, walkSpeed * 0.5f);
+        }
+        else
+        {
+            animator.SetBool(isRunningParam, false);
+            animator.SetBool("IsRunningBackwards", false);
+            animator.SetFloat(speedParam, 0f);
         }
     }
 }
