@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - Ladder
+  - Climbable
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - groundCheck
   - groundLayer
   - Ground
-  - 
+  - Climbable
   - 
   - 
   - 

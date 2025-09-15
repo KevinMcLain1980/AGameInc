@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -57,10 +57,6 @@
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PlayerMovement.cs",
@@ -68,10 +64,14 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
-              "ViewState": "AgIAAHwBAAAAAAAAAAAqwIoBAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAALMBAAAAAAAAAAAAAMcBAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-09T15:50:09.063Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Document",
@@ -83,7 +83,8 @@
               "RelativeToolTip": "Assets\\Scripts\\Animation\\StayUpright.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAAwCMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T23:44:04.732Z"
+              "WhenOpened": "2025-09-09T23:44:04.732Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -93,9 +94,10 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\PlayerStateManager.cs",
               "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Animation\\PlayerStateManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:20:17.648Z"
+              "WhenOpened": "2025-09-09T16:20:17.648Z",
+              "EditorCaption": ""
             }
           ]
         }
