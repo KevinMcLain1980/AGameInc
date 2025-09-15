@@ -3,8 +3,15 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-public class PlayerMovement : MonoBehaviour
+
+
+
+public class PlayerMovement : MonoBehaviour, IDamage
 {
+    [SerializeField] int HP;
+    [SerializeField] int oxygen;
+
+
     [Header("Movement Settings")]
     public float walkSpeed = 3f;
     public float runSpeed = 6f;
@@ -391,6 +398,14 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool(isRunningParam, false);
             animator.SetBool("IsRunningBackwards", false);
             animator.SetFloat(speedParam, 0f);
+        }
+    }
+
+    public void takeDamage(int amount)
+    {
+        if(HP <= 0)
+        {
+            // Already dead, ignore further damage
         }
     }
 }
