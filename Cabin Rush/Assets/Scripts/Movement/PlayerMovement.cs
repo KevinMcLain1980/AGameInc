@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Stamina Settings")]
     public float maxStamina = 100f;
+    public float currentStamina = 100f;
     public float staminaDrainRate = 20f;
     public float staminaRecoveryRate = 10f;
     public float breathingDuration = 5f;
@@ -34,8 +35,6 @@ public class PlayerMovement : MonoBehaviour
     public string isBreathingParam = "IsBreathing";
     public string diveRollParam = "DiveRoll";
     public string slideTriggerParam = "SlideTrigger";
-
-    private float currentStamina;
     private bool isBreathing = false;
     private float breathingTimer = 0f;
     private bool justStoppedFastRunning = false;
@@ -75,6 +74,18 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        // Rotation Input
+        float rotationInput = 0f;
+        if (Input.GetKey(KeyCode.LeftArrow))
+            rotationInput = -1f;
+        else if (Input.GetKey(KeyCode.RightArrow))
+            rotationInput = 1f;
+
+        if (rotationInput != 0f)
+        {
+            transform.Rotate(Vector3.up * rotationInput * rotationSpeed * Time.deltaTime);
+        }
+
         HandleDiveRoll();
         HandleMovement();
 
@@ -136,37 +147,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (isPlayingHangingClimb) return;
 
-        if (isCrouching && isHoldingDown)
-        {
-            isCrouching = false;
-            animator.SetBool("IsCrouching", false);
-            StartCoroutine(SmoothUncrouch());
-
-            float walkspeed = walkSpeed * 0.5f;
-            Vector3 move = -transform.forward * walkspeed;
-            rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
-
-            animator.SetBool("IsRunningBackwards", true);
-            animator.SetBool("IsRunning", false);
-            animator.SetBool("IsRunningFast", false);
-            animator.SetBool("IsCrouchWalking", false);
-            animator.SetFloat(speedParam, walkspeed);
-            return;
-        }
-
-        if (!isHoldingUp && !isHoldingDown)
-        {
-            animator.SetBool("IsRunningBackwards", false);
-            animator.SetBool("IsRunning", false);
-            animator.SetBool("IsRunningFast", false);
-            animator.SetBool("IsCrouchWalking", false);
-            animator.SetFloat(speedParam, 0f);
-            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
-            return;
-        }
-
         float speed = 0f;
 
+        // Handle crouch walking
         if (isCrouching)
         {
             if (isHoldingUp)
@@ -187,13 +170,27 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (isHoldingUp && isHoldingShift && currentStamina > 0)
+            // Handle RunningFast with stamina drain
+            if (isHoldingUp && isHoldingShift && currentStamina > 0f)
             {
                 speed = fastRunSpeed;
+                currentStamina -= staminaDrainRate * Time.deltaTime;
+
                 animator.SetBool("IsRunningFast", true);
                 animator.SetBool("IsRunning", true);
+
+                if (currentStamina <= 0f)
+                {
+                    currentStamina = 0f;
+                    justStoppedFastRunning = true;
+
+                    // Transition to Running
+                    speed = runSpeed;
+                    animator.SetBool("IsRunningFast", false);
+                    animator.SetBool("IsRunning", true);
+                }
             }
-            else if (isHoldingUp && !isHoldingShift)
+            else if (isHoldingUp)
             {
                 speed = runSpeed;
                 animator.SetBool("IsRunningFast", false);
@@ -217,6 +214,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsCrouchWalking", false);
         }
 
+        // Apply movement
         if (!isJumping)
         {
             Vector3 move = transform.forward * vertical * speed;
@@ -225,16 +223,15 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat(speedParam, Mathf.Abs(vertical * speed));
 
-        if (isCrouchWalking)
-        {
-            currentStamina -= staminaDrainRate * Time.deltaTime * 0.5f;
-        }
+        // Clamp stamina
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
-        if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0) && animator.GetBool(isRunningFastParam))
+        // Handle breathing state
+        if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0f) && animator.GetBool(isRunningFastParam))
         {
             justStoppedFastRunning = true;
             animator.SetBool(isRunningFastParam, false);
-            animator.SetBool(isRunningParam, false);
+            animator.SetBool(isRunningParam, true); // Transition to regular running
         }
     }
 
@@ -272,20 +269,34 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleStamina()
     {
-        bool isFastRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0;
+        bool isTryingToRunFast = Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0;
+        bool isActuallyRunningFast = animator.GetBool(isRunningFastParam);
 
-        if (isFastRunning && currentStamina > 0)
+        // Drain stamina only while actively RunningFast
+        if (isActuallyRunningFast && currentStamina > 0f)
         {
             currentStamina -= staminaDrainRate * Time.deltaTime;
+
+            if (currentStamina <= 0f)
+            {
+                currentStamina = 0f;
+                justStoppedFastRunning = true;
+
+                // Transition to regular running
+                animator.SetBool(isRunningFastParam, false);
+                animator.SetBool(isRunningParam, true);
+            }
         }
-        else
+        // Recover stamina only when not trying to Run Fast
+        else if (!isTryingToRunFast)
         {
             currentStamina += staminaRecoveryRate * Time.deltaTime;
         }
 
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
-        if ((currentStamina <= 0 || justStoppedFastRunning) && !isBreathing)
+        // Handle breathing animation when stamina hits zero
+        if ((currentStamina <= 0f || justStoppedFastRunning) && !isBreathing)
         {
             isBreathing = true;
             breathingTimer = breathingDuration;
@@ -300,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
             if (breathingTimer <= 0f)
             {
                 isBreathing = false;
-                animator.SetBool("isBreathingParam", false);
+                animator.SetBool(isBreathingParam, false);
             }
         }
         else
