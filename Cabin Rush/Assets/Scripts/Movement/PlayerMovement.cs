@@ -6,10 +6,13 @@ using System.Collections;
 
 
 
-public class PlayerMovement : MonoBehaviour, IDamage
+public class PlayerMovement : MonoBehaviour, IDamage,IOxygen
 {
     [SerializeField] int HP;
     [SerializeField] int oxygen;
+
+    int HPOrig;
+    int oxygenOrig;
 
 
     [Header("Movement Settings")]
@@ -56,6 +59,11 @@ public class PlayerMovement : MonoBehaviour, IDamage
 
     void Start()
     {
+        HPOrig = HP;
+        oxygenOrig = oxygen;
+        updatePlayerUI();
+
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentStamina = maxStamina;
@@ -403,9 +411,38 @@ public class PlayerMovement : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
-        if(HP <= 0)
+        oxygen -= amount;
+        if (oxygen > 0)
         {
-            // Already dead, ignore further damage
+            // Player has oxygen, damage is ignored
+            return;
+        }
+      
+        HP -= amount;
+        updatePlayerUI();
+
+        if (HP <= 0)
+        {
+            // Player is dead — handle death logic here
+        }
+    }
+
+    void updatePlayerUI()
+    {
+               GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        GameManager.instance.oxygenBar.fillAmount = (float)oxygen / oxygenOrig;
+    }
+
+    public void takeOxygen(int amount)
+    {
+        oxygen -= amount;
+        if (oxygen < 0) oxygen = 0;
+
+        updatePlayerUI();
+
+        if (oxygen <= 0)
+        {
+            // Player can't breathe — handle suffocation logic here
         }
     }
 }
