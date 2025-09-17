@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject MenuWin;
     [SerializeField] GameObject MenuLose;
 
+    
+
     [Header("Player UI")]
     public Slider playerHPBar;
     public Slider playerStaminaBar;
@@ -102,4 +104,5 @@ public class GameManager : MonoBehaviour
         if (playerOxygenBar != null)
             playerOxygenBar.value = currentOxygen / maxOxygen;
     }
-}
+
+   
