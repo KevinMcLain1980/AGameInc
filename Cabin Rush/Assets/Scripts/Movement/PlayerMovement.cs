@@ -7,9 +7,6 @@ using System;
 [RequireComponent(typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Transform climbAnchor;
-    [SerializeField] public Slider staminaSlider;
-    [SerializeField] private Slider healthSlider;
 
 
     [Header("Movement Settings")]
@@ -26,11 +23,13 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius = 0.2f;
 
     [Header("Health Settings")]
-    public float maxHealth = 100f;
-    public float currentHealth = 100f;
+    [SerializeField] int HP;
+    public int HPOrig;
 
     [Header("Oxygen Settings")]
     public float maxOxygen = 100f;
+    public int OxyOrig;
+    [SerializeField] int Oxygen;
     public float currentOxygen = 100f;
     public float oxygenRecoveryRate = 10f;
     public float oxygenDrainRate = 20f;
@@ -38,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Stamina Settings")]
+    public int StaminaOrig;
+    [NonSerialized] int Stamina;
     public float maxStamina = 100f;
     public float currentStamina = 100f;
     public float staminaDrainRate = 20f;
@@ -75,17 +76,20 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
     private Rigidbody rb;
+    private object gameManager;
 
     void Start()
 
     {
-        if (staminaSlider == null)
+        updatePlayerUI();
+        HPOrig = HP;
+        OxyOrig = Oxygen;
+        StaminaOrig = Stamina;
         Debug.LogWarning("Stamina Slider not assigned!");
 
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        currentStamina = maxStamina;
 
         animator.SetBool(isRunningParam, false);
         animator.SetBool(isRunningFastParam, false);
@@ -110,7 +114,6 @@ public class PlayerMovement : MonoBehaviour
 
 
         HandleOxygen();
-        UpdateUIBars();
         HandleDiveRoll();
         HandleMovement();
 
@@ -125,53 +128,18 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleOxygen()
     {
-        if (isUnderwater)
-        {
-            currentOxygen -= oxygenDrainRate * Time.deltaTime;
-        }
-        else
-        {
-            currentOxygen += oxygenRecoveryRate * Time.deltaTime;
-        }
-
-        currentOxygen = Mathf.Clamp(currentOxygen, 0f, maxOxygen);
-        GameManager.instance.UpdatePlayerOxygen(currentOxygen, maxOxygen);
+        GameManager.instance.playerOxygenBar.fillAmount = (float)Oxygen / OxyOrig;
     }
 
 
 
-    void UpdateUIBars()
+    void updatePlayerUI()
     {
-        // Debug logs for live tracking
-        Debug.Log($"Health: {currentHealth}/{maxHealth}");
-        Debug.Log($"Stamina: {currentStamina}/{maxStamina}");
-        Debug.Log($"Oxygen: {currentOxygen}/{maxOxygen}");
 
-        // Clamp values to avoid overflow/underflow
-        float healthPercent = Mathf.Clamp01(currentHealth / maxHealth);
-        float staminaPercent = Mathf.Clamp01(currentStamina / maxStamina);
-        float oxygenPercent = Mathf.Clamp01(currentOxygen / maxOxygen);
-
-        // Update GameManager UI references
-        if (GameManager.instance.playerHPBar != null)
-            GameManager.instance.playerHPBar.value = healthPercent;
-
-        if (GameManager.instance.playerStaminaBar != null)
-            GameManager.instance.playerStaminaBar.value = staminaPercent;
-
-        if (GameManager.instance.playerOxygenBar != null)
-            GameManager.instance.playerOxygenBar.value = oxygenPercent;
-
-        // Update local sliders (if used)
-        if (healthSlider != null)
-            healthSlider.value = healthPercent;
-
-        if (staminaSlider != null)
-            staminaSlider.value = staminaPercent;
-
-        // Optional: if oxygen uses Image.fillAmount
-        if (oxygenFillImage != null)
-            oxygenFillImage.fillAmount = oxygenPercent;
+        GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        GameManager.instance.playerOxygenBar.fillAmount = (float)Oxygen / OxyOrig;
+        GameManager.instance.playerStaminaBar.fillAmount = (float)Stamina / StaminaOrig;
+        
     }
 
     private IEnumerator HandleObstacleClimb()
@@ -347,7 +315,6 @@ public class PlayerMovement : MonoBehaviour
     {
         bool isTryingToRunFast = Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0;
         bool isActuallyRunningFast = animator.GetBool(isRunningFastParam);
-        staminaSlider.value = currentStamina / maxStamina;
 
         // Drain stamina only while actively RunningFast
         if (isActuallyRunningFast && currentStamina > 0f)
@@ -395,6 +362,8 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetFloat("IdleSpeed", 1f);
         }
+
+        GameManager.instance.playerStaminaBar.fillAmount = (float)Stamina / StaminaOrig;
     }
     void HandleCrouchToggle()
     {
@@ -494,12 +463,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void TakeDamage(float amount)
     {
-        currentHealth -= amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-        GameManager.instance.UpdatePlayerHealth(currentHealth, maxHealth);
-
-        if (currentHealth <= 0f)
+        if (HP <= 0f)
         {
             Debug.Log("Player has died.");
             GameManager.instance.Loser();

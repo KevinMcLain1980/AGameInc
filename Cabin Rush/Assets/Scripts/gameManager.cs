@@ -12,9 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject MenuLose;
 
     [Header("Player UI")]
-    public Slider playerHPBar;
-    public Slider playerStaminaBar;
-    public Slider playerOxygenBar;
+    public Image playerHPBar;
+    public Image playerStaminaBar;
+    public Image playerOxygenBar;
     public GameObject PlayerDmgPanel;
 
     public bool isPaused;
@@ -82,24 +82,5 @@ public class GameManager : MonoBehaviour
         statePause();
         MenuActive = MenuLose;
         MenuActive.SetActive(true);
-    }
-
-    // ✅ UI Update Methods
-    public void UpdatePlayerHealth(float currentHealth, float maxHealth)
-    {
-        if (playerHPBar != null)
-            playerHPBar.value = currentHealth / maxHealth;
-    }
-
-    public void UpdatePlayerStamina(float currentStamina, float maxStamina)
-    {
-        if (playerStaminaBar != null)
-            playerStaminaBar.value = currentStamina / maxStamina;
-    }
-
-    public void UpdatePlayerOxygen(float currentOxygen, float maxOxygen)
-    {
-        if (playerOxygenBar != null)
-            playerOxygenBar.value = currentOxygen / maxOxygen;
     }
 }

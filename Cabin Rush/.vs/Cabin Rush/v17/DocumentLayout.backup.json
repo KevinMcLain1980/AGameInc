@@ -7,28 +7,28 @@
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\assets\\scripts\\rebindmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rebindmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Camera\\HeadBob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\Camera\\HeadBob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\assets\\scripts\\rebindmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rebindmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\Animation\\PlayerStateManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\assets\\scripts\\camera\\headbob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\camera\\headbob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\assets\\scripts\\placers\\deckboundswallplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\placers\\deckboundswallplacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\Animation\\StayUpright.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Placers\\DeckBoundsWallPlacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\Placers\\DeckBoundsWallPlacer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -73,35 +73,6 @@
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "gameManager.cs",
-              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\gameManager.cs",
-              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\gameManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T14:40:27.642Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HeadBob.cs",
-              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Camera\\HeadBob.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Camera\\HeadBob.cs",
-              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Camera\\HeadBob.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Camera\\HeadBob.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-16T13:20:42.292Z"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PlayerMovement.cs",
@@ -109,14 +80,27 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAArwCQAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAgwGEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-09T15:50:09.063Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
+              "Title": "HeadBob.cs",
+              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Camera\\HeadBob.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Camera\\HeadBob.cs",
+              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Camera\\HeadBob.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Camera\\HeadBob.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T13:20:42.292Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "DeckBoundsWallPlacer.cs",
               "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Placers\\DeckBoundsWallPlacer.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Placers\\DeckBoundsWallPlacer.cs",
@@ -127,8 +111,25 @@
               "WhenOpened": "2025-09-15T22:48:24.363Z"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "gameManager.cs",
+              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\gameManager.cs",
+              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\gameManager.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAQwFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T14:40:27.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "RebindManager.cs",
               "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\RebindManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\RebindManager.cs",
@@ -136,12 +137,11 @@
               "RelativeToolTip": "Assets\\Scripts\\RebindManager.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-15T04:15:08.944Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-15T04:15:08.944Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "StayUpright.cs",
               "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\StayUpright.cs",
@@ -153,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PlayerStateManager.cs",
               "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\PlayerStateManager.cs",
