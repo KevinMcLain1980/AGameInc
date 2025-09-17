@@ -4,9 +4,20 @@ using System;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
+<<<<<<< HEAD
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform climbAnchor;
+=======
+
+
+
+public class PlayerMovement : MonoBehaviour, IDamage
+{
+    [SerializeField] int HP;
+    [SerializeField] int oxygen;
+
+>>>>>>> parent of 9033d64 (Oxy/HP depletion)
 
     [Header("Movement Settings")]
     public float walkSpeed = 3f;
@@ -61,7 +72,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
 
     {
+<<<<<<< HEAD
         characterController = GetComponent<CharacterController>();
+=======
+>>>>>>> parent of 9033d64 (Oxy/HP depletion)
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentStamina = maxStamina;
@@ -509,4 +523,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void takeDamage(int amount)
+    {
+        if(HP <= 0)
+        {
+            // Already dead, ignore further damage
+        }
+    }
+>>>>>>> parent of 9033d64 (Oxy/HP depletion)
 }

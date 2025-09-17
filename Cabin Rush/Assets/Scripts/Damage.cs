@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System;
 
 public class Damage : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class Damage : MonoBehaviour
     [SerializeField] int destroyTime;
 
     bool isDamaging;
-    bool isOxygenDamaging;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -61,6 +59,7 @@ public class Damage : MonoBehaviour
     {
         if (other.isTrigger) { return; }
         IDamage dmg = other.GetComponent<IDamage>();
+<<<<<<< HEAD
         IOxygen oxy = other.GetComponent<IOxygen>();
         if (dmg != null && damageType == DamageType.DOT & !isDamaging)
         {
@@ -70,17 +69,13 @@ public class Damage : MonoBehaviour
         {
             StartCoroutine(damageOxygen(oxy));
         }
+=======
+        if (dmg != null && damageType == DamageType.DOT)
+        {
+           StartCoroutine(damageOther(dmg));
+        }
+>>>>>>> parent of 9033d64 (Oxy/HP depletion)
     }
-
-    IEnumerator damageOxygen(IOxygen o)
-    {
-        isDamaging = true;
-        o.takeOxygen(damageAmount);
-        yield return new WaitForSeconds(damageRate);
-        isDamaging = false;
-
-    }
-
     IEnumerator damageOther(IDamage d)
     {
         isDamaging = true;

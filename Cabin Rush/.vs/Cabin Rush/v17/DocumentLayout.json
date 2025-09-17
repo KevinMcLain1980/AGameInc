@@ -1,18 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\",
+  "WorkspaceRootPath": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\full sail\\pp3\\agameinc\\cabin rush\\assets\\scripts\\movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\users\\loko4\\onedrive\\desktop\\cabin-rush\\agameinc\\cabin rush\\assets\\scripts\\movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\movement\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\Animation\\PlayerStateManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\assets\\scripts\\damage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\damage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\SUIMONO - WATER SYSTEM 2\\SCRIPTS\\SuimonoObject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\SUIMONO - WATER SYSTEM 2\\SCRIPTS\\SuimonoObject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\assets\\scripts\\idamage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\idamage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\assets\\scripts\\ioxygen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ioxygen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\Animation\\StayUpright.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\Animation\\PlayerStateManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,31 +42,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IOxygen.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IOxygen.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\IOxygen.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IOxygen.cs",
+              "RelativeToolTip": "Assets\\Scripts\\IOxygen.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-15T04:26:53.857Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IDamage.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IDamage.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\IDamage.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IDamage.cs",
+              "RelativeToolTip": "Assets\\Scripts\\IDamage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-15T01:14:20.079Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:3:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
             },
             {
               "$type": "Bookmark",
@@ -54,50 +89,85 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SuimonoObject.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\SUIMONO - WATER SYSTEM 2\\SCRIPTS\\SuimonoObject.cs",
+              "RelativeDocumentMoniker": "Assets\\SUIMONO - WATER SYSTEM 2\\SCRIPTS\\SuimonoObject.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\SUIMONO - WATER SYSTEM 2\\SCRIPTS\\SuimonoObject.cs",
+              "RelativeToolTip": "Assets\\SUIMONO - WATER SYSTEM 2\\SCRIPTS\\SuimonoObject.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T05:42:17.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Damage.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Damage.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Damage.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Damage.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Damage.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAkwFkAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-15T03:04:43.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "gameManager.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\gameManager.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\gameManager.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAYwFcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-15T04:16:04.045Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Movement\\PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
-              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Movement\\PlayerMovement.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Movement\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Movement\\PlayerMovement.cs",
-              "ViewState": "AgIAALMBAAAAAAAAAAAAAMcBAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAP8BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-09T15:50:09.063Z",
               "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "StayUpright.cs",
-              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\StayUpright.cs",
-              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\StayUpright.cs",
               "RelativeToolTip": "Assets\\Scripts\\Animation\\StayUpright.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAAwCMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T23:44:04.732Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T23:44:04.732Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "PlayerStateManager.cs",
-              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs",
+              "DocumentMoniker": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Animation\\PlayerStateManager.cs",
-              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs",
+              "ToolTip": "C:\\Users\\loko4\\OneDrive\\Desktop\\Cabin-Rush\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Animation\\PlayerStateManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Animation\\PlayerStateManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:20:17.648Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:20:17.648Z"
             }
           ]
         }
