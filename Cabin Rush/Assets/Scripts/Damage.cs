@@ -62,11 +62,11 @@ public class Damage : MonoBehaviour
         if (other.isTrigger) { return; }
         IDamage dmg = other.GetComponent<IDamage>();
         IOxygen oxy = other.GetComponent<IOxygen>();
-        if (dmg != null && damageType == DamageType.DOT && !isDamaging)
+        if (dmg != null && damageType == DamageType.DOT & !isDamaging)
         {
            StartCoroutine(damageOther(dmg));
         }
-        if(oxy != null && damageType == DamageType.DOT && !isOxygenDamaging)
+        if(oxy != null && damageType == DamageType.DOT & !isOxygenDamaging)
         {
             StartCoroutine(damageOxygen(oxy));
         }
