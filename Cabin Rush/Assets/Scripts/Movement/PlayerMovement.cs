@@ -1,19 +1,25 @@
 using UnityEngine;
 using System.Collections;
-using System;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-public class PlayerMovement : MonoBehaviour
+
+
+
+public class PlayerMovement : MonoBehaviour, IDamage,IOxygen
 {
-    [SerializeField] private Transform climbAnchor;
+    [SerializeField] int HP;
+    [SerializeField] int oxygen;
+
+    int HPOrig;
+    int oxygenOrig;
+
 
     [Header("Movement Settings")]
     public float walkSpeed = 3f;
     public float runSpeed = 6f;
     public float fastRunSpeed = 12f;
     public float rotationSpeed = 120f;
-    private CharacterController characterController;
 
     [Header("Jump Settings")]
     public float jumpForce = 28f;
@@ -44,24 +50,20 @@ public class PlayerMovement : MonoBehaviour
     private bool isCrouchWalking = false;
     public bool isSliding = false;
     private bool isDiveRolling = false;
-    private bool diveRollOnCooldown = false;
+    private float diveRollCooldown = 2f;
+    private float diveRollTimer = 0f;
     public string diveRollTriggerParam = "DiveRollTrigger";
-    public float diveRollDuration = 1.2f;
-    public float diveRollCooldown = 2f;
-
-    [Header("Climbing Parameters")]
-    private bool isNearObstacle;
-    [SerializeField] private Transform obstacleSnapPoint;
-    private bool isPlayingHangingClimb = false;
-
 
     private Animator animator;
     private Rigidbody rb;
 
     void Start()
-
     {
-        characterController = GetComponent<CharacterController>();
+        HPOrig = HP;
+        oxygenOrig = oxygen;
+        updatePlayerUI();
+
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentStamina = maxStamina;
@@ -71,58 +73,17 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool(isBreathingParam, false);
         animator.SetFloat(speedParam, 0f);
         animator.SetFloat("IdleSpeed", 1f);
-
     }
+
     void Update()
     {
-        HandleDiveRoll();
         HandleMovement();
-
-        if (isNearObstacle && Input.GetKeyDown(KeyCode.Space))
-        {
-            TriggerHangingClimb();
-        }
+        HandleRotation();
+        HandleStamina();
+        HandleDiveRoll();
         HandleJump();
         HandleCrouchToggle();
         HandleSlide();
-    }
-
-    private IEnumerator HandleObstacleClimb()
-    {
-        if (obstacleSnapPoint == null)
-        {
-            Debug.LogWarning("ObstacleSnapPoint not assigned.");
-            yield break;
-        }
-
-        rb.linearVelocity = Vector3.zero;
-        rb.useGravity = false;
-
-        // Play animation
-        animator.Play("HangingClimb", 0, 0f); // Ensure this matches your Animator state name
-
-        // Wait for animation to finish
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-
-        // Move player to snap point
-        transform.position = obstacleSnapPoint.position;
-
-        rb.useGravity = true;
-        animator.Play("Idle", 0, 0f);
-    }
-
-    private void TriggerHangingClimb()
-    {
-        rb.linearVelocity = Vector3.zero;
-        rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
-
-        isPlayingHangingClimb = true;
-
-        animator.ResetTrigger("HangingClimbTrigger");
-        animator.SetTrigger("HangingClimbTrigger");
-
-        StartCoroutine(HandleHangingClimb());
     }
 
     void HandleMovement()
@@ -133,8 +94,6 @@ public class PlayerMovement : MonoBehaviour
         bool isHoldingUp = vertical > 0;
         bool isHoldingDown = vertical < 0;
         bool isHoldingShift = Input.GetKey(KeyCode.LeftShift);
-
-        if (isPlayingHangingClimb) return;
 
         if (isCrouching && isHoldingDown)
         {
@@ -225,11 +184,13 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat(speedParam, Mathf.Abs(vertical * speed));
 
+        // 🔧 Optional stamina drain for crouch walking
         if (isCrouchWalking)
         {
             currentStamina -= staminaDrainRate * Time.deltaTime * 0.5f;
         }
 
+        // 🔧 Handle fast run exit
         if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0) && animator.GetBool(isRunningFastParam))
         {
             justStoppedFastRunning = true;
@@ -296,12 +257,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isBreathing)
         {
-            breathingTimer -= Time.deltaTime;
-            if (breathingTimer <= 0f)
-            {
-                isBreathing = false;
-                animator.SetBool("isBreathingParam", false);
-            }
+            animator.SetFloat("IdleSpeed", 0.5f);
         }
         else
         {
@@ -335,6 +291,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Trigger slide animation
             animator.SetTrigger(slideTriggerParam);
+            animator.SetFloat("SlideSpeed", 0.5f); // Optional: slow down animation
 
             // Apply forward slide movement
             Vector3 slideDirection = transform.forward * runSpeed * 2.5f;
@@ -349,17 +306,11 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         isSliding = false;
         animator.ResetTrigger(slideTriggerParam);
+        animator.Play("Idle"); 
 
         bool stillHoldingUp = Input.GetAxisRaw("Vertical") > 0;
-        bool isHoldingShift = Input.GetKey(KeyCode.LeftShift);
 
-        if (stillHoldingUp && isHoldingShift && currentStamina > 0)
-        {
-            animator.SetBool(isRunningParam, true);
-            animator.SetBool(isRunningFastParam, true);
-            animator.SetFloat(speedParam, fastRunSpeed);
-        }
-        else if (stillHoldingUp)
+        if (stillHoldingUp)
         {
             animator.SetBool(isRunningParam, true);
             animator.SetBool(isRunningFastParam, false);
@@ -407,86 +358,35 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleDiveRoll()
     {
-        // Prevent triggering during roll or cooldown
-        if (isDiveRolling || diveRollOnCooldown) return;
+        if (isDiveRolling) return;
 
-        // Input detection
         bool divePressed = Input.GetKeyDown(KeyCode.X);
-        bool upArrowHeld = Input.GetKey(KeyCode.UpArrow);
-        bool isGrounded = IsGrounded();
+        bool isIdleOrRunning = animator.GetBool(isRunningParam) || animator.GetFloat(speedParam) == 0f;
 
-        // Allow Dive Roll from Idle or Running, or when UpArrow + X are pressed together
-        if (divePressed && isGrounded && (upArrowHeld || animator.GetFloat(speedParam) == 0f))
+        if (divePressed && isIdleOrRunning)
         {
             isDiveRolling = true;
-            diveRollOnCooldown = true;
-
-            // Trigger animation
-            animator.ResetTrigger(diveRollTriggerParam);
             animator.SetTrigger(diveRollTriggerParam);
 
-            // Optional: force immediate start
-            animator.Play("DiveRoll", 0, 0f); // Ensure "DiveRoll" matches Animator state name
-
-            // Apply forward movement burst
+            // Apply forward roll movement
             Vector3 rollDirection = transform.forward * runSpeed * 2f;
             rb.linearVelocity = new Vector3(rollDirection.x, rb.linearVelocity.y, rollDirection.z);
 
-            // Start recovery coroutine
             StartCoroutine(ResetDiveRoll());
         }
     }
 
-    private IEnumerator HandleHangingClimb()
-    {
-        if (obstacleSnapPoint == null)
-        {
-            Debug.LogWarning("ObstacleSnapPoint not assigned.");
-            yield break;
-        }
-
-        // Wait until the animation state is active
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("HangingClimb"));
-        float duration = animator.GetCurrentAnimatorStateInfo(0).length;
-        yield return new WaitForSeconds(duration);
-        // Slight upward and forward nudge
-        Vector3 climbOffset = transform.forward * 0.5f + Vector3.up * 0.3f;
-        transform.position += climbOffset;
-
-        transform.position = obstacleSnapPoint.position + climbOffset;
-
-        rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.None;
-        isPlayingHangingClimb = false;
-
-        animator.SetFloat(speedParam, 0f); // Let Animator return to Idle naturally
-    }
-
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Obstacle"))
-        {
-            isNearObstacle = true;
-            Debug.Log("Near obstacle");
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Obstacle"))
-        {
-            isNearObstacle = false;
-        }
-    }
-
-
     IEnumerator ResetDiveRoll()
     {
-        yield return new WaitForSeconds(diveRollCooldown);
-        isDiveRolling = false;
-        diveRollOnCooldown = false;
+        // Wait for animation to finish
+        yield return new WaitForSeconds(1.2f); // Match Dive Roll animation length
 
+        // Wait for movement to settle
+        yield return new WaitForSeconds(0.8f); // Optional: allow physics to stabilize
+
+        isDiveRolling = false;
+
+        // Transition based on input
         float vertical = Input.GetAxisRaw("Vertical");
 
         if (vertical > 0)
@@ -509,4 +409,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void takeDamage(int amount)
+    {
+        oxygen -= amount;
+        if (oxygen > 0)
+        {
+            // Player has oxygen, damage is ignored
+            return;
+        }
+      
+        HP -= amount;
+        updatePlayerUI();
+
+        if (HP <= 0)
+        {
+            // Player is dead — handle death logic here
+        }
+    }
+
+    void updatePlayerUI()
+    {
+               GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+        GameManager.instance.oxygenBar.fillAmount = (float)oxygen / oxygenOrig;
+    }
+
+    public void takeOxygen(int amount)
+    {
+        oxygen -= amount;
+        if (oxygen < 0) oxygen = 0;
+
+        updatePlayerUI();
+
+        if (oxygen <= 0)
+        {
+            // Player can't breathe — handle suffocation logic here
+        }
+    }
 }
