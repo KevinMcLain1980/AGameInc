@@ -1,23 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-<<<<<<< HEAD
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform climbAnchor;
-=======
+    [SerializeField] public Slider staminaSlider;
+    [SerializeField] private Slider healthSlider;
 
-
-
-public class PlayerMovement : MonoBehaviour, IDamage
-{
-    [SerializeField] int HP;
-    [SerializeField] int oxygen;
-
->>>>>>> parent of 9033d64 (Oxy/HP depletion)
 
     [Header("Movement Settings")]
     public float walkSpeed = 3f;
@@ -32,11 +25,27 @@ public class PlayerMovement : MonoBehaviour, IDamage
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
 
+    [Header("Health Settings")]
+    public float maxHealth = 100f;
+    public float currentHealth = 100f;
+
+    [Header("Oxygen Settings")]
+    public float maxOxygen = 100f;
+    public float currentOxygen = 100f;
+    public float oxygenRecoveryRate = 10f;
+    public float oxygenDrainRate = 20f;
+    [SerializeField] private Image oxygenFillImage;
+
+
     [Header("Stamina Settings")]
     public float maxStamina = 100f;
+    public float currentStamina = 100f;
     public float staminaDrainRate = 20f;
     public float staminaRecoveryRate = 10f;
     public float breathingDuration = 5f;
+
+    [Header("Environment States")]
+    public bool isUnderwater = false;
 
     [Header("Animation Parameters")]
     public string speedParam = "Speed";
@@ -45,8 +54,6 @@ public class PlayerMovement : MonoBehaviour, IDamage
     public string isBreathingParam = "IsBreathing";
     public string diveRollParam = "DiveRoll";
     public string slideTriggerParam = "SlideTrigger";
-
-    private float currentStamina;
     private bool isBreathing = false;
     private float breathingTimer = 0f;
     private bool justStoppedFastRunning = false;
@@ -72,10 +79,10 @@ public class PlayerMovement : MonoBehaviour, IDamage
     void Start()
 
     {
-<<<<<<< HEAD
+        if (staminaSlider == null)
+        Debug.LogWarning("Stamina Slider not assigned!");
+
         characterController = GetComponent<CharacterController>();
-=======
->>>>>>> parent of 9033d64 (Oxy/HP depletion)
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentStamina = maxStamina;
@@ -89,6 +96,21 @@ public class PlayerMovement : MonoBehaviour, IDamage
     }
     void Update()
     {
+        // Rotation Input
+        float rotationInput = 0f;
+        if (Input.GetKey(KeyCode.LeftArrow))
+            rotationInput = -1f;
+        else if (Input.GetKey(KeyCode.RightArrow))
+            rotationInput = 1f;
+
+        if (rotationInput != 0f)
+        {
+            transform.Rotate(Vector3.up * rotationInput * rotationSpeed * Time.deltaTime);
+        }
+
+
+        HandleOxygen();
+        UpdateUIBars();
         HandleDiveRoll();
         HandleMovement();
 
@@ -99,6 +121,57 @@ public class PlayerMovement : MonoBehaviour, IDamage
         HandleJump();
         HandleCrouchToggle();
         HandleSlide();
+    }
+
+    void HandleOxygen()
+    {
+        if (isUnderwater)
+        {
+            currentOxygen -= oxygenDrainRate * Time.deltaTime;
+        }
+        else
+        {
+            currentOxygen += oxygenRecoveryRate * Time.deltaTime;
+        }
+
+        currentOxygen = Mathf.Clamp(currentOxygen, 0f, maxOxygen);
+        GameManager.instance.UpdatePlayerOxygen(currentOxygen, maxOxygen);
+    }
+
+
+
+    void UpdateUIBars()
+    {
+        // Debug logs for live tracking
+        Debug.Log($"Health: {currentHealth}/{maxHealth}");
+        Debug.Log($"Stamina: {currentStamina}/{maxStamina}");
+        Debug.Log($"Oxygen: {currentOxygen}/{maxOxygen}");
+
+        // Clamp values to avoid overflow/underflow
+        float healthPercent = Mathf.Clamp01(currentHealth / maxHealth);
+        float staminaPercent = Mathf.Clamp01(currentStamina / maxStamina);
+        float oxygenPercent = Mathf.Clamp01(currentOxygen / maxOxygen);
+
+        // Update GameManager UI references
+        if (GameManager.instance.playerHPBar != null)
+            GameManager.instance.playerHPBar.value = healthPercent;
+
+        if (GameManager.instance.playerStaminaBar != null)
+            GameManager.instance.playerStaminaBar.value = staminaPercent;
+
+        if (GameManager.instance.playerOxygenBar != null)
+            GameManager.instance.playerOxygenBar.value = oxygenPercent;
+
+        // Update local sliders (if used)
+        if (healthSlider != null)
+            healthSlider.value = healthPercent;
+
+        if (staminaSlider != null)
+            staminaSlider.value = staminaPercent;
+
+        // Optional: if oxygen uses Image.fillAmount
+        if (oxygenFillImage != null)
+            oxygenFillImage.fillAmount = oxygenPercent;
     }
 
     private IEnumerator HandleObstacleClimb()
@@ -150,37 +223,9 @@ public class PlayerMovement : MonoBehaviour, IDamage
 
         if (isPlayingHangingClimb) return;
 
-        if (isCrouching && isHoldingDown)
-        {
-            isCrouching = false;
-            animator.SetBool("IsCrouching", false);
-            StartCoroutine(SmoothUncrouch());
-
-            float walkspeed = walkSpeed * 0.5f;
-            Vector3 move = -transform.forward * walkspeed;
-            rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
-
-            animator.SetBool("IsRunningBackwards", true);
-            animator.SetBool("IsRunning", false);
-            animator.SetBool("IsRunningFast", false);
-            animator.SetBool("IsCrouchWalking", false);
-            animator.SetFloat(speedParam, walkspeed);
-            return;
-        }
-
-        if (!isHoldingUp && !isHoldingDown)
-        {
-            animator.SetBool("IsRunningBackwards", false);
-            animator.SetBool("IsRunning", false);
-            animator.SetBool("IsRunningFast", false);
-            animator.SetBool("IsCrouchWalking", false);
-            animator.SetFloat(speedParam, 0f);
-            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
-            return;
-        }
-
         float speed = 0f;
 
+        // Handle crouch walking
         if (isCrouching)
         {
             if (isHoldingUp)
@@ -201,13 +246,27 @@ public class PlayerMovement : MonoBehaviour, IDamage
         }
         else
         {
-            if (isHoldingUp && isHoldingShift && currentStamina > 0)
+            // Handle RunningFast with stamina drain
+            if (isHoldingUp && isHoldingShift && currentStamina > 0f)
             {
                 speed = fastRunSpeed;
+                currentStamina -= staminaDrainRate * Time.deltaTime;
+
                 animator.SetBool("IsRunningFast", true);
                 animator.SetBool("IsRunning", true);
+
+                if (currentStamina <= 0f)
+                {
+                    currentStamina = 0f;
+                    justStoppedFastRunning = true;
+
+                    // Transition to Running
+                    speed = runSpeed;
+                    animator.SetBool("IsRunningFast", false);
+                    animator.SetBool("IsRunning", true);
+                }
             }
-            else if (isHoldingUp && !isHoldingShift)
+            else if (isHoldingUp)
             {
                 speed = runSpeed;
                 animator.SetBool("IsRunningFast", false);
@@ -231,6 +290,7 @@ public class PlayerMovement : MonoBehaviour, IDamage
             animator.SetBool("IsCrouchWalking", false);
         }
 
+        // Apply movement
         if (!isJumping)
         {
             Vector3 move = transform.forward * vertical * speed;
@@ -239,16 +299,15 @@ public class PlayerMovement : MonoBehaviour, IDamage
 
         animator.SetFloat(speedParam, Mathf.Abs(vertical * speed));
 
-        if (isCrouchWalking)
-        {
-            currentStamina -= staminaDrainRate * Time.deltaTime * 0.5f;
-        }
+        // Clamp stamina
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
-        if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0) && animator.GetBool(isRunningFastParam))
+        // Handle breathing state
+        if ((!isHoldingUp || !isHoldingShift || currentStamina <= 0f) && animator.GetBool(isRunningFastParam))
         {
             justStoppedFastRunning = true;
             animator.SetBool(isRunningFastParam, false);
-            animator.SetBool(isRunningParam, false);
+            animator.SetBool(isRunningParam, true); // Transition to regular running
         }
     }
 
@@ -286,20 +345,35 @@ public class PlayerMovement : MonoBehaviour, IDamage
 
     void HandleStamina()
     {
-        bool isFastRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0;
+        bool isTryingToRunFast = Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0;
+        bool isActuallyRunningFast = animator.GetBool(isRunningFastParam);
+        staminaSlider.value = currentStamina / maxStamina;
 
-        if (isFastRunning && currentStamina > 0)
+        // Drain stamina only while actively RunningFast
+        if (isActuallyRunningFast && currentStamina > 0f)
         {
             currentStamina -= staminaDrainRate * Time.deltaTime;
+
+            if (currentStamina <= 0f)
+            {
+                currentStamina = 0f;
+                justStoppedFastRunning = true;
+
+                // Transition to regular running
+                animator.SetBool(isRunningFastParam, false);
+                animator.SetBool(isRunningParam, true);
+            }
         }
-        else
+        // Recover stamina only when not trying to Run Fast
+        else if (!isTryingToRunFast)
         {
             currentStamina += staminaRecoveryRate * Time.deltaTime;
         }
 
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
-        if ((currentStamina <= 0 || justStoppedFastRunning) && !isBreathing)
+        // Handle breathing animation when stamina hits zero
+        if ((currentStamina <= 0f || justStoppedFastRunning) && !isBreathing)
         {
             isBreathing = true;
             breathingTimer = breathingDuration;
@@ -314,7 +388,7 @@ public class PlayerMovement : MonoBehaviour, IDamage
             if (breathingTimer <= 0f)
             {
                 isBreathing = false;
-                animator.SetBool("isBreathingParam", false);
+                animator.SetBool(isBreathingParam, false);
             }
         }
         else
@@ -416,6 +490,20 @@ public class PlayerMovement : MonoBehaviour, IDamage
             Vector3 pos = transform.position;
             pos.y = hit.point.y;
             transform.position = pos;
+        }
+    }
+    public void TakeDamage(float amount)
+    {
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
+        GameManager.instance.UpdatePlayerHealth(currentHealth, maxHealth);
+
+        if (currentHealth <= 0f)
+        {
+            Debug.Log("Player has died.");
+            GameManager.instance.Loser();
+            // Add death animation or disable movement here
         }
     }
 
@@ -523,14 +611,4 @@ public class PlayerMovement : MonoBehaviour, IDamage
         }
     }
 
-<<<<<<< HEAD
-=======
-    public void takeDamage(int amount)
-    {
-        if(HP <= 0)
-        {
-            // Already dead, ignore further damage
-        }
-    }
->>>>>>> parent of 9033d64 (Oxy/HP depletion)
 }

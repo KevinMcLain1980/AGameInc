@@ -5,32 +5,31 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [Header("UI Menus")]
     [SerializeField] GameObject MenuActive;
     [SerializeField] GameObject MenuPause;
     [SerializeField] GameObject MenuWin;
     [SerializeField] GameObject MenuLose;
 
-    public Image playerHPBar;
+    [Header("Player UI")]
+    public Slider playerHPBar;
+    public Slider playerStaminaBar;
+    public Slider playerOxygenBar;
     public GameObject PlayerDmgPanel;
+
     public bool isPaused;
     public GameObject Player;
-    // public PlayerController PlayerScript;
 
     float timeScaleOriginal;
-
     int GameGoalCount;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         instance = this;
-
         Player = GameObject.FindWithTag("Player");
-        //  PlayerScript = Player.GetComponent<PlayerController>();
         timeScaleOriginal = Time.timeScale;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))
@@ -84,5 +83,23 @@ public class GameManager : MonoBehaviour
         MenuActive = MenuLose;
         MenuActive.SetActive(true);
     }
-}
 
+    // ✅ UI Update Methods
+    public void UpdatePlayerHealth(float currentHealth, float maxHealth)
+    {
+        if (playerHPBar != null)
+            playerHPBar.value = currentHealth / maxHealth;
+    }
+
+    public void UpdatePlayerStamina(float currentStamina, float maxStamina)
+    {
+        if (playerStaminaBar != null)
+            playerStaminaBar.value = currentStamina / maxStamina;
+    }
+
+    public void UpdatePlayerOxygen(float currentOxygen, float maxOxygen)
+    {
+        if (playerOxygenBar != null)
+            playerOxygenBar.value = currentOxygen / maxOxygen;
+    }
+}
