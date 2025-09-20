@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 3dad051655789484ca66723efde2d7c6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - staminaBar: {instanceID: 0}
+  - oxygenBar: {instanceID: 0}
+  - health: {fileID: 11400000, guid: cea5a1ff0b8fa3c41976c12fb514e428, type: 2}
+  - stamina: {fileID: 11400000, guid: 3c92d8ce9f319a8489c8ab747d20ecc4, type: 2}
+  - oxygen: {fileID: 11400000, guid: 728b4f2aa96192c4aaff8cae00027255, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
