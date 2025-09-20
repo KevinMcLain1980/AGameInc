@@ -5,7 +5,7 @@ public class Damage : MonoBehaviour
 {
     enum DamageType
     {
-       moving, stationary,DOT,Homing,
+        moving, stationary, DOT, Homing,
     }
     [SerializeField] DamageType damageType;
     [SerializeField] Rigidbody rb;
@@ -15,13 +15,15 @@ public class Damage : MonoBehaviour
     [SerializeField] int destroyTime;
 
     bool isDamaging;
+    private bool isOxygenDamaging;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(damageType == DamageType.moving || damageType == DamageType.Homing)
+        if (damageType == DamageType.moving || damageType == DamageType.Homing)
         {
             Destroy(gameObject, destroyTime);
-            if(damageType == DamageType.moving)
+            if (damageType == DamageType.moving)
             {
                 rb.linearVelocity = transform.forward * speed;
             }
@@ -31,7 +33,7 @@ public class Damage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(damageType == DamageType.Homing)
+        if (damageType == DamageType.Homing)
         {
             rb.linearVelocity = (GameManager.instance.Player.transform.position - transform.position).normalized * speed * Time.deltaTime;
         }
@@ -39,17 +41,17 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.isTrigger) { return; }
+        if (other.isTrigger) { return; }
 
         IDamage dmg = other.GetComponent<IDamage>();
 
-        
-        if(dmg != null && damageType != DamageType.DOT)
+
+        if (dmg != null && damageType != DamageType.DOT)
         {
-          dmg.takeDamage(damageAmount);
+            dmg.takeDamage(damageAmount);
 
         }
-        if(damageType == DamageType.moving || damageType == DamageType.Homing)
+        if (damageType == DamageType.moving || damageType == DamageType.Homing)
         {
             Destroy(gameObject);
         }
@@ -59,29 +61,37 @@ public class Damage : MonoBehaviour
     {
         if (other.isTrigger) { return; }
         IDamage dmg = other.GetComponent<IDamage>();
-<<<<<<< HEAD
+
         IOxygen oxy = other.GetComponent<IOxygen>();
         if (dmg != null && damageType == DamageType.DOT & !isDamaging)
         {
-           StartCoroutine(damageOther(dmg));
+            StartCoroutine(damageOther(dmg));
         }
-        if(oxy != null && damageType == DamageType.DOT & !isOxygenDamaging)
+        if (oxy != null && damageType == DamageType.DOT & !isOxygenDamaging)
         {
             StartCoroutine(damageOxygen(oxy));
         }
-=======
         if (dmg != null && damageType == DamageType.DOT)
         {
-           StartCoroutine(damageOther(dmg));
+            StartCoroutine(damageOther(dmg));
         }
->>>>>>> parent of 9033d64 (Oxy/HP depletion)
     }
+
+
     IEnumerator damageOther(IDamage d)
     {
         isDamaging = true;
         d.takeDamage(damageAmount);
         yield return new WaitForSeconds(damageRate);
         isDamaging = false;
-       
+
     }
+    IEnumerator damageOxygen(IOxygen o)
+    {
+        isDamaging = true;
+        o.takeOxygen(damageAmount);
+        yield return new WaitForSeconds(damageRate);
+        isDamaging = false;
+    }
+
 }

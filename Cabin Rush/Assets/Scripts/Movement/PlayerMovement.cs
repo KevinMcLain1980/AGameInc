@@ -5,8 +5,11 @@ using System;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Animator))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamage, IOxygen
 {
+    [SerializeField] int HP;
+    [SerializeField] int oxygen;
+
     [SerializeField] private Transform climbAnchor;
     [SerializeField] public Slider staminaSlider;
     [SerializeField] private Slider healthSlider;
@@ -610,5 +613,41 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat(speedParam, 0f);
         }
     }
+   // void updatePlayerUI()
+  //  {
+      //  GameManager.instance.playerHPBar.fillAmount = (float)HP / HPOrig;
+     //   GameManager.instance.oxygenBar.fillAmount = (float)oxygen / oxygenOrig;
+  //  }
 
+    public void takeOxygen(int amount)
+    {
+        
+          oxygen -= amount;
+        if (oxygen > 0)
+        {
+            // Player has oxygen, damage is ignored
+            return;
+        }
+
+        HP -= amount;
+   
+        if (HP <= 0)
+        {
+            // Player is dead — handle death logic here
+        }
+    }
+
+    public void takeDamage(int amount)
+    {
+        oxygen -= amount;
+        if (oxygen < 0) oxygen = 0;
+
+      //  updatePlayerUI();
+
+        if (oxygen <= 0)
+        {
+            // Already dead, ignore further damage
+            // Player can't breathe — handle suffocation logic here
+        }
+    }
 }
