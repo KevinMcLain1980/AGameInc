@@ -7,6 +7,9 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] private float damageAmount = 10f;
     [SerializeField] private ScreenFlash screenFlash;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource damageAudio;
+
     private Animator animator;
     private CameraShake cameraShake;
 
@@ -20,10 +23,12 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (health != null)
         {
+            damageAudio?.Play();
             health.Modify(-damageAmount);
             animator.SetTrigger("TakeDamage");
             cameraShake?.TriggerShake();
             screenFlash?.TriggerFlash();
+
         }
 
         if (statUI != null)
