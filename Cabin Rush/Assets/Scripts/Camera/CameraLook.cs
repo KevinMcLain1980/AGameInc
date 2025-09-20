@@ -1,15 +1,46 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraLook : MonoBehaviour
 {
-    public float sensitivity = 2f;
-    public Transform playerBody;
-    float xRotation = 0f;
+    [Header("Look Settings")]
+    [SerializeField] private float sensitivity = 2f;
+    [SerializeField] private Transform playerBody;
 
-    void Update()
+    private InputAction lookAction;
+    private Vector2 lookInput;
+    private float xRotation = 0f;
+
+    private void Awake()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+        if (playerBody == null)
+        {
+            Debug.LogError("CameraLook: Player body reference not assigned.");
+        }
+    }
+
+    private void OnEnable()
+    {
+        lookAction = new InputAction("Look", binding: "<Mouse>/delta");
+        lookAction.Enable();
+        lookAction.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+    }
+
+    private void OnDisable()
+    {
+        if (lookAction != null)
+        {
+            lookAction.performed -= ctx => lookInput = ctx.ReadValue<Vector2>();
+            lookAction.Disable();
+        }
+    }
+
+    private void Update()
+    {
+        if (playerBody == null) return;
+
+        float mouseX = lookInput.x * sensitivity * Time.deltaTime;
+        float mouseY = lookInput.y * sensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

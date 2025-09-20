@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,36 +21,40 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public GameObject Player;
 
-    float timeScaleOriginal;
-    int GameGoalCount;
+    private PlayerControls controls;
+    private float timeScaleOriginal;
+    private int GameGoalCount;
 
-    void Awake()
+    private void Awake()
     {
         instance = this;
         Player = GameObject.FindWithTag("Player");
         timeScaleOriginal = Time.timeScale;
+
+        controls = new PlayerControls();
+        controls.Player.Cancel.performed += ctx => HandlePauseToggle();
     }
 
-    void Update()
+    private void OnEnable() => controls?.Enable();
+    private void OnDisable() => controls?.Disable();
+
+    private void HandlePauseToggle()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (MenuActive == null)
         {
-            if (MenuActive == null)
-            {
-                statePause();
-                MenuActive = MenuPause;
-                MenuActive.SetActive(true);
-            }
-            else if (MenuActive == MenuPause)
-            {
-                stateUnPaused();
-            }
+            statePause();
+            MenuActive = MenuPause;
+            MenuActive.SetActive(true);
+        }
+        else if (MenuActive == MenuPause)
+        {
+            stateUnPaused();
         }
     }
 
     public void statePause()
     {
-        isPaused = !isPaused;
+        isPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -57,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     public void stateUnPaused()
     {
-        isPaused = !isPaused;
+        isPaused = false;
         Time.timeScale = timeScaleOriginal;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
