@@ -19,22 +19,29 @@ public class PlayerStateManager : MonoBehaviour
         cameraShake = Camera.main.GetComponent<CameraShake>();
     }
 
+    private bool isDead = false;
+
     public void TakeDamage()
     {
-        if (health != null)
-        {
-            damageAudio?.Play();
-            health.Modify(-damageAmount);
-            animator.SetTrigger("TakeDamage");
-            cameraShake?.TriggerShake();
-            screenFlash?.TriggerFlash();
+        if (health == null || isDead) return;
 
-        }
+        health.Modify(-damageAmount);
+        statUI?.UpdateUI();
+        animator.SetTrigger("TakeDamage");
+        cameraShake?.TriggerShake();
+        screenFlash?.TriggerFlash();
+        damageAudio?.Play();
 
-        if (statUI != null)
+        if (health.CurrentValue <= 0)
         {
-            statUI.UpdateUI();
-            Debug.Log("UI updated");
+            TriggerDeath();
         }
+    }
+
+    private void TriggerDeath()
+    {
+        isDead = true;
+        animator.SetTrigger("DeathTrigger");
+        Debug.Log("Death triggered");
     }
 }

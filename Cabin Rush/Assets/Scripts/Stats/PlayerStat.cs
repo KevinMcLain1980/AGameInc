@@ -5,8 +5,11 @@ using System.Collections.Generic;
 public class PlayerStat : ScriptableObject
 {
     [Header("Stat Values")]
-    public float maxValue = 100f;
-    public float currentValue = 100f;
+   [SerializeField] public float maxValue = 100f;
+   [SerializeField] public float currentValue = 100f;
+
+   public float CurrentValue => Mathf.Clamp(currentValue, 0f, maxValue);
+
 
     public float Normalized => Mathf.Clamp01(currentValue / maxValue);
 
