@@ -277,6 +277,7 @@ public class PlayerMovementLogic : MonoBehaviour
         animator.speed = isMovingBackward ? 0.5f : 1f;
     }
 
+
     public void SetAnimatorSync(Animator animatorRef)
     {
         animator = animatorRef;
