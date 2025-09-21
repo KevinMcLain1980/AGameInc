@@ -23,7 +23,7 @@ TagManager:
   - PlayerBody
   - DamageSreen
   - Environment
-  - 
+  - FX
   - 
   - 
   - 
@@ -45,6 +45,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FX
+    uniqueID: 2642211307
     locked: 0
   m_RenderingLayers:
   - Default
