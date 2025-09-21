@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class RubbleSpawner : MonoBehaviour
 {
@@ -6,11 +7,11 @@ public class RubbleSpawner : MonoBehaviour
     public GameObject rubblePrefab; // Assign Rubble_Big in Inspector
     public int count = 50;
     public Vector3 areaSize = new Vector3(60f, 0f, 60f); // Customize for Deck Scene
-    public float yOffset = 0.5f; // Lift rubble slightly above ground
-
-    [Header("Raycast Settings")]
-    public bool useRaycast = true;
+    public float yOffset = 0.2f; // Slight lift to avoid z-fighting
     public float raycastHeight = 10f;
+    public float spacingRadius = 1.5f; // Minimum distance between rubble
+
+    private List<Vector3> placedPositions = new List<Vector3>();
 
     void Start()
     {
@@ -21,39 +22,46 @@ public class RubbleSpawner : MonoBehaviour
         }
 
         int placed = 0;
+        int attempts = 0;
+        int maxAttempts = count * 20;
 
-        for (int i = 0; i < count; i++)
+        while (placed < count && attempts < maxAttempts)
         {
-            Vector3 randomXZ = new Vector3(
+            Vector3 localPos = new Vector3(
                 Random.Range(-areaSize.x / 2, areaSize.x / 2),
                 0f,
                 Random.Range(-areaSize.z / 2, areaSize.z / 2)
             );
 
-            Vector3 spawnPos = transform.position + randomXZ;
+            Vector3 worldPos = transform.position + localPos;
+            Vector3 rayOrigin = worldPos + Vector3.up * raycastHeight;
 
-            if (useRaycast)
+            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, raycastHeight * 2f))
             {
-                Vector3 rayOrigin = spawnPos + Vector3.up * raycastHeight;
-                if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, raycastHeight * 2f))
+                Vector3 spawnPos = hit.point + Vector3.up * yOffset;
+
+                if (IsFarEnough(spawnPos))
                 {
-                    spawnPos = hit.point + Vector3.up * yOffset;
-                }
-                else
-                {
-                    spawnPos += Vector3.up * yOffset;
+                    Instantiate(rubblePrefab, spawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
+                    placedPositions.Add(spawnPos);
+                    placed++;
                 }
             }
-            else
-            {
-                spawnPos += Vector3.up * yOffset;
-            }
 
-            Instantiate(rubblePrefab, spawnPos, Quaternion.Euler(0, Random.Range(0f, 360f), 0));
-            placed++;
+            attempts++;
         }
 
-        Debug.Log($"Placed {placed} rubble objects.");
+        Debug.Log($"Placed {placed} rubble objects after {attempts} attempts.");
+    }
+
+    bool IsFarEnough(Vector3 newPos)
+    {
+        foreach (Vector3 pos in placedPositions)
+        {
+            if (Vector3.Distance(pos, newPos) < spacingRadius)
+                return false;
+        }
+        return true;
     }
 
     void OnDrawGizmosSelected()

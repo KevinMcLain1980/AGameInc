@@ -21,7 +21,7 @@ public class PlayerStateManager : MonoBehaviour
 
     private bool isDead = false;
 
-    public void TakeDamage()
+    public void TakeDamage(float amount)
     {
         if (health == null || isDead) return;
 
