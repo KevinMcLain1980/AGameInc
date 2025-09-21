@@ -42,6 +42,5 @@ public class PlayerStateManager : MonoBehaviour
     {
         isDead = true;
         animator.SetTrigger("DeathTrigger");
-        Debug.Log("Death triggered");
     }
 }
