@@ -8,6 +8,7 @@ TagManager:
   - Ladder
   - Climbable
   - Obstacle
+  - CinematicCamera
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Climbable
   - PlayerBody
   - DamageSreen
-  - 
+  - Environment
   - 
   - 
   - 

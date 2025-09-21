@@ -15,7 +15,7 @@ public class PlayerStatUI : MonoBehaviour
 
     private void Awake()
     {
-        ValidateReferences();
+       
     }
 
     private void Start()
@@ -44,14 +44,4 @@ public class PlayerStatUI : MonoBehaviour
 
     }
 
-    private void ValidateReferences()
-    {
-        if (healthBarFill == null) Debug.LogError("PlayerStatUI: 'healthBarFill' is missing.");
-        if (staminaBarFill == null) Debug.LogError("PlayerStatUI: 'staminaBarFill' is missing.");
-        if (oxygenBarFill == null) Debug.LogError("PlayerStatUI: 'oxygenBarFill' is missing.");
-
-        if (health == null) Debug.LogError("PlayerStatUI: 'health' stat is missing.");
-        if (stamina == null) Debug.LogError("PlayerStatUI: 'stamina' stat is missing.");
-        if (oxygen == null) Debug.LogError("PlayerStatUI: 'oxygen' stat is missing.");
-    }
 }
