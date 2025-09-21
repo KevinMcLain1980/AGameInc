@@ -9,6 +9,5 @@ public class StatusBar : MonoBehaviour
     private void Update()
     {
         fillImage.fillAmount = stat.Normalized;
-        Debug.Log($"{stat.name} currentValue at start: {stat.currentValue}");
     }
 }
