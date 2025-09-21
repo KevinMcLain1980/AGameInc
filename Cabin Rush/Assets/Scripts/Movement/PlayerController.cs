@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Keyboard.current.hKey.wasPressedThisFrame)
         {
-            stateManager.TakeDamage();
+            stateManager.TakeDamage(10f);
         }
     }
 }
