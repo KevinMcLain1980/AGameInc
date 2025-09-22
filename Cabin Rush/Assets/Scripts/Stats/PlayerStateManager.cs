@@ -32,7 +32,7 @@ public class PlayerStateManager : MonoBehaviour
         screenFlash?.TriggerFlash();
         damageAudio?.Play();
 
-        if (health.CurrentValue <= 0)
+        if (health.Current <= 0)
         {
             TriggerDeath();
         }
