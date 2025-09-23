@@ -5,19 +5,29 @@ using System.Collections.Generic;
 public class PlayerStat : ScriptableObject
 {
     [Header("Stat Values")]
-   [SerializeField] public float maxValue = 100f;
-   [SerializeField] public float currentValue = 100f;
+    [SerializeField] private float maxValue = 100f;
+    [SerializeField] private float currentValue = 100f;
 
-   public float CurrentValue => Mathf.Clamp(currentValue, 0f, maxValue);
+    public float Max => maxValue;
 
 
-    public float Normalized => Mathf.Clamp01(currentValue / maxValue);
+    // Clamp current value between 0 and max
+    public float Current
+    {
+        get => Mathf.Clamp(currentValue, 0f, maxValue);
+        set => currentValue = Mathf.Clamp(value, 0f, maxValue);
+    }
+
+    public float Normalized => Mathf.Clamp01(Current / maxValue);
 
     // Static registry of all PlayerStat instances
     private static readonly List<PlayerStat> allStats = new List<PlayerStat>();
 
     private void OnEnable()
     {
+        if (!allStats.Contains(this))
+            allStats.Add(this);
+
         if (currentValue <= 0)
             currentValue = maxValue;
     }
@@ -32,7 +42,7 @@ public class PlayerStat : ScriptableObject
     /// </summary>
     public void Modify(float amount)
     {
-        currentValue = Mathf.Clamp(currentValue + amount, 0, maxValue);
+        Current += amount;
     }
 
     /// <summary>

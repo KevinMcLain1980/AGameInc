@@ -9,6 +9,7 @@ TagManager:
   - Climbable
   - Obstacle
   - CinematicCamera
+  - wat
   layers:
   - Default
   - TransparentFX
