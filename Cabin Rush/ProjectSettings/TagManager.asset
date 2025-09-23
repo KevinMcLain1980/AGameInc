@@ -10,6 +10,7 @@ TagManager:
   - Obstacle
   - CinematicCamera
   - wat
+  - Water
   layers:
   - Default
   - TransparentFX

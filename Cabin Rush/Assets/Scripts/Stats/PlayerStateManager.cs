@@ -2,45 +2,77 @@ using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    [SerializeField] private PlayerStat health;
-    [SerializeField] private PlayerStatUI statUI;
-    [SerializeField] private float damageAmount = 10f;
-    [SerializeField] private ScreenFlash screenFlash;
-
-    [Header("Audio")]
-    [SerializeField] private AudioSource damageAudio;
-
-    private Animator animator;
-    private CameraShake cameraShake;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-        cameraShake = Camera.main.GetComponent<CameraShake>();
-    }
+    [Header("Animation & Camera")]
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private CameraSwitcher cameraSwitcher;
 
     private bool isDead = false;
+    public bool IsDead => isDead;
 
-    public void TakeDamage(float amount)
+    // Call this method when the player dies
+    public void TriggerDeath()
     {
-        if (health == null || isDead) return;
+        if (isDead) return;
+        isDead = true;
 
-        health.Modify(-damageAmount);
-        statUI?.UpdateUI();
-        animator.SetTrigger("TakeDamage");
-        cameraShake?.TriggerShake();
-        screenFlash?.TriggerFlash();
-        damageAudio?.Play();
-
-        if (health.Current <= 0)
+        // Play death animation
+        if (playerAnimator != null)
         {
-            TriggerDeath();
+            playerAnimator.SetTrigger("Death");
+        }
+        else
+        {
+            Debug.LogWarning("Player Animator not assigned in PlayerStateManager.");
+        }
+
+        // Enable camera switcher
+        if (cameraSwitcher != null)
+        {
+            cameraSwitcher.enabled = true;
+            cameraSwitcher.ActivateCinematic();
+        }
+        else
+        {
+            Debug.LogWarning("CameraSwitcher not assigned in PlayerStateManager.");
+        }
+
+        // Optional: disable movement, trigger UI, etc.
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        if (isDead) return;
+
+        HealthStat healthStat = GetComponent<HealthStat>();
+        if (healthStat != null)
+        {
+            healthStat.ModifyStat(-damageAmount);
+
+            if (healthStat.CurrentValue <= 0)
+            {
+                TriggerDeath();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("HealthStat component not found on PlayerStateManager.");
         }
     }
 
-    private void TriggerDeath()
+    // Optional: Reset state if needed (e.g., on respawn)
+    public void ResetState()
     {
-        isDead = true;
-        animator.SetTrigger("DeathTrigger");
+        isDead = false;
+
+        if (cameraSwitcher != null)
+        {
+            cameraSwitcher.enabled = false;
+        }
+
+        // Reset animator if needed
+        if (playerAnimator != null)
+        {
+            playerAnimator.ResetTrigger("Death");
+        }
     }
 }
