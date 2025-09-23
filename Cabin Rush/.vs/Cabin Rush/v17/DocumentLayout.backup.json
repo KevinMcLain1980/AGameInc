@@ -3,11 +3,19 @@
   "WorkspaceRootPath": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\users\\mee6h\\onedrive\\documents\\github\\agameinc\\cabin rush\\assets\\scripts\\drownplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\drownplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\users\\mee6h\\onedrive\\documents\\github\\agameinc\\cabin rush\\assets\\scripts\\waterrise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\waterrise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\users\\mee6h\\onedrive\\documents\\github\\agameinc\\cabin rush\\assets\\scripts\\pickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\assets\\scripts\\pickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\pickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -50,7 +58,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,7 +66,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "DrownPlayer.cs",
+              "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\DrownPlayer.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DrownPlayer.cs",
+              "ToolTip": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\DrownPlayer.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DrownPlayer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T03:17:30.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WaterRise.cs",
+              "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\WaterRise.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\WaterRise.cs",
+              "ToolTip": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\WaterRise.cs",
+              "RelativeToolTip": "Assets\\Scripts\\WaterRise.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T03:15:41.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "RebindManager.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\RebindManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\RebindManager.cs",
@@ -70,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "playerInput.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\playerInput.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\playerInput.cs",
@@ -82,7 +116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "IPickup.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\IPickup.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\IPickup.cs",
@@ -94,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "buttonFunctions.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\buttonFunctions.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\buttonFunctions.cs",
@@ -106,20 +140,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "gameManager.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\gameManager.cs",
               "ToolTip": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\gameManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\gameManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAQwDEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T06:41:29.028Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T06:41:29.028Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "HealthPickup.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\HealthPickup.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\HealthPickup.cs",
@@ -131,7 +164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "SpeedPickup.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\SpeedPickup.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\SpeedPickup.cs",
@@ -143,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Pickup.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\Pickup.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Pickup.cs",
@@ -151,12 +184,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Pickup.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAAwBoAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T20:02:22.043Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-14T20:02:22.043Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "PickupStats.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\PickupStats.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PickupStats.cs",
@@ -168,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "cameraController.cs",
               "DocumentMoniker": "C:\\Users\\Mee6h\\OneDrive\\Documents\\GitHub\\AGameInc\\Cabin Rush\\Assets\\Scripts\\cameraController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\cameraController.cs",
