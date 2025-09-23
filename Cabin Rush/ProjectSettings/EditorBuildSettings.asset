@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Deck.unity
-    guid: d827bdf96b657ec47806f28c8b5d57f4
-  - enabled: 1
     path: Assets/Scenes/Grand Dining Hall.unity
     guid: 92d1cc2878f36bb42929aaff57c23d15
   - enabled: 1
     path: Assets/Scenes/Cabin.unity
     guid: bacd00de6d940c040bf441522d0de5f5
+  - enabled: 1
+    path: Assets/Scenes/Deck.unity
+    guid: d827bdf96b657ec47806f28c8b5d57f4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

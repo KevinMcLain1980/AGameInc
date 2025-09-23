@@ -12,6 +12,12 @@ public class PlayerStat : MonoBehaviour
     public float MaxValue => maxValue;
     public float MinValue => minValue;
     public string StatName => statName;
+    public float Normalized => Mathf.InverseLerp(minValue, maxValue, currentValue);
+
+    public void SetValue(float value)
+    {
+        currentValue = Mathf.Clamp(value, minValue, maxValue);
+    }
 
     /// <summary>
     /// Modifies the stat by a given amount. Negative values reduce the stat.

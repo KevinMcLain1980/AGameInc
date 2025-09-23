@@ -19,10 +19,10 @@ public class DrownPlayer : MonoBehaviour
         {
             // Drain oxygen over time
             float amount = oxygenDrainRate * Time.deltaTime;
-            oxygenStat.SetValue(oxygenStat.currentValue - amount);
+            oxygenStat.SetValue(oxygenStat.CurrentValue);
 
             // Trigger drowning when oxygen hits zero
-            if (oxygenStat.currentValue <= 0f && !isDrowning)
+            if (oxygenStat.CurrentValue <= 0f && !isDrowning)
             {
                 StartDrowning();
             }

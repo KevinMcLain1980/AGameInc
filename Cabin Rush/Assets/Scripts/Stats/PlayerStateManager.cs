@@ -6,10 +6,30 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private CameraSwitcher cameraSwitcher;
 
+    [Header("Stat Reference")]
+    [SerializeField] private PlayerStat healthStat;
+
     private bool isDead = false;
     public bool IsDead => isDead;
 
-    // Call this method when the player dies
+    /// <summary>
+    /// Call this method to apply damage to the player.
+    /// </summary>
+    public void TakeDamage(float damageAmount)
+    {
+        if (isDead || healthStat == null) return;
+
+        healthStat.ModifyStat(-damageAmount);
+
+        if (healthStat.IsDepleted())
+        {
+            TriggerDeath();
+        }
+    }
+
+    /// <summary>
+    /// Triggers the death sequence: animation, camera switch, and disables movement.
+    /// </summary>
     public void TriggerDeath()
     {
         if (isDead) return;
@@ -25,7 +45,7 @@ public class PlayerStateManager : MonoBehaviour
             Debug.LogWarning("Player Animator not assigned in PlayerStateManager.");
         }
 
-        // Enable camera switcher
+        // Enable cinematic camera
         if (cameraSwitcher != null)
         {
             cameraSwitcher.enabled = true;
@@ -36,30 +56,12 @@ public class PlayerStateManager : MonoBehaviour
             Debug.LogWarning("CameraSwitcher not assigned in PlayerStateManager.");
         }
 
-        // Optional: disable movement, trigger UI, etc.
+        // Optional: disable movement, trigger death UI, etc.
     }
 
-    public void TakeDamage(float damageAmount)
-    {
-        if (isDead) return;
-
-        HealthStat healthStat = GetComponent<HealthStat>();
-        if (healthStat != null)
-        {
-            healthStat.ModifyStat(-damageAmount);
-
-            if (healthStat.CurrentValue <= 0)
-            {
-                TriggerDeath();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("HealthStat component not found on PlayerStateManager.");
-        }
-    }
-
-    // Optional: Reset state if needed (e.g., on respawn)
+    /// <summary>
+    /// Resets the player state (e.g., on respawn).
+    /// </summary>
     public void ResetState()
     {
         isDead = false;
@@ -69,10 +71,14 @@ public class PlayerStateManager : MonoBehaviour
             cameraSwitcher.enabled = false;
         }
 
-        // Reset animator if needed
         if (playerAnimator != null)
         {
             playerAnimator.ResetTrigger("Death");
+        }
+
+        if (healthStat != null)
+        {
+            healthStat.ResetStat();
         }
     }
 }
