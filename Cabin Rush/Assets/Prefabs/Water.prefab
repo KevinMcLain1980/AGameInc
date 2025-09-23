@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   riseSpeed: 0.5
-  maxHeight: 10
+  maxHeight: 15
 --- !u!114 &2706557509514231846
 MonoBehaviour:
   m_ObjectHideFlags: 0
