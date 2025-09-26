@@ -1,20 +1,66 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraLook : MonoBehaviour
 {
-    public float sensitivity = 2f;
-    public Transform playerBody;
-    float xRotation = 0f;
+    [Header("Look Settings")]
+    [SerializeField] private float sensitivity = 2f;
+    [SerializeField] private Transform playerBody;
+    [SerializeField] private float strafeSpeed = 3f; // units per second
 
-    void Update()
+    private InputAction lookAction;
+    private Vector2 lookInput;
+
+    private void Awake()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+        if (playerBody == null)
+        {
+            Debug.LogError("CameraLook: Player body reference not assigned.");
+        }
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    private void OnEnable()
+    {
+        lookAction = new InputAction("Look", binding: "<Mouse>/delta");
+        lookAction.Enable();
+        lookAction.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+    }
+
+    private void OnDisable()
+    {
+        if (lookAction != null)
+        {
+            lookAction.performed -= ctx => lookInput = ctx.ReadValue<Vector2>();
+            lookAction.Disable();
+        }
+    }
+
+    private void Update()
+    {
+        if (playerBody == null) return;
+
+        // Mouse-based horizontal rotation
+        float mouseX = lookInput.x * sensitivity * Time.deltaTime;
         playerBody.Rotate(Vector3.up * mouseX);
+
+        // Shift + Arrow Key Strafing
+        if (Keyboard.current.leftShiftKey.isPressed)
+        {
+            Vector3 strafeDirection = Vector3.zero;
+
+            if (Keyboard.current.leftArrowKey.isPressed)
+            {
+                strafeDirection = -playerBody.right;
+            }
+            else if (Keyboard.current.rightArrowKey.isPressed)
+            {
+                strafeDirection = playerBody.right;
+            }
+
+            playerBody.position += strafeDirection * strafeSpeed * Time.deltaTime;
+        }
     }
 }

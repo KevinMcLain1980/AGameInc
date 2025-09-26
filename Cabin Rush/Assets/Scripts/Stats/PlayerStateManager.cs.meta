@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f3531a3a0ccc40648a1d705732400ef8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthStat: {fileID: 11400000, guid: cea5a1ff0b8fa3c41976c12fb514e428, type: 2}
+  - oxygenStat: {fileID: 11400000, guid: 728b4f2aa96192c4aaff8cae00027255, type: 2}
+  - statUI: {instanceID: 0}
+  - screenFlash: {instanceID: 0}
+  - damageAudio: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
