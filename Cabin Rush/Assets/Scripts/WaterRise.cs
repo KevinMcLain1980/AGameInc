@@ -1,25 +1,25 @@
 using UnityEngine;
-public class WaterRise : MonoBehaviour
+//public class WaterRise : MonoBehaviour
 {
-    [SerializeField] private float riseSpeed = 1f;
-    [SerializeField] private float maxHeight = 10f;
+   // [SerializeField] private float riseSpeed = 1f;
+   // [SerializeField] private float maxHeight = 10f;
 
-    PlayerMovement InWater;
+   // private PlayerMovement InWater;
 
-    private void Update()
+   // private void Update()
     {
-        if (transform.position.y < maxHeight)
+   //     if (transform.position.y < maxHeight)
         {
-            transform.position += Vector3.up * riseSpeed * Time.deltaTime;
-           
-        }
-    }
+     //       transform.position += Vector3.up * riseSpeed * Time.deltaTime;
+    //       
+//        }
+//    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            InWater.runSpeed -= Time.deltaTime;
+ //   private void OnTriggerEnter(Collider other)
+ //   {
+  //      if (other.CompareTag("Player"))
+ //       {
+         //   InWater.runSpeed -= Time.deltaTime;
         }
     }
 }
