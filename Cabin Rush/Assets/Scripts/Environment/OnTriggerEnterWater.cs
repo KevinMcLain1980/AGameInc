@@ -15,8 +15,8 @@ public class OnTriggerEnterWater : MonoBehaviour
                 waterOverlay.enabled = true;
 
             DrownPlayer drown = other.GetComponent<DrownPlayer>();
-            if (drown != null)
-                drown.SetWaterOverlay(true);
+          //  if (drown != null)
+           //     drown.SetWaterOverlay(true);
         }
     }
 
@@ -30,8 +30,8 @@ public class OnTriggerEnterWater : MonoBehaviour
                 waterOverlay.enabled = false;
 
             DrownPlayer drown = other.GetComponent<DrownPlayer>();
-            if (drown != null)
-                drown.SetWaterOverlay(false);
+          //  if (drown != null)
+           //     drown.SetWaterOverlay(false);
         }
     }
 }

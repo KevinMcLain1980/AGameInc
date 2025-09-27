@@ -25,13 +25,10 @@ public class GameManager : MonoBehaviour
     private Vector3 StartPos;
 
     public bool isPaused;
-
-
-
-
     public GameObject Player;
+    public PlayerController playerScript;
 
-    private PlayerControls controls;
+    public PlayerControls controls;
     private float timeScaleOriginal;
     private int GameGoalCount;
 
@@ -49,6 +46,7 @@ public class GameManager : MonoBehaviour
 
         controls = new PlayerControls();
         controls.Player.Cancel.performed += ctx => HandlePauseToggle();
+        playerScript = Player.GetComponent<PlayerController>();
     }
 
     private void Update()
