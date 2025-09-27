@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 9218678364947075913}
   - component: {fileID: 7993467835027612638}
   m_Layer: 0
-  m_Name: 'Health PickUp Platform '
+  m_Name: Health PickUp Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
