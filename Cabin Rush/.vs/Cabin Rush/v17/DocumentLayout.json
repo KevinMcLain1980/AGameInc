@@ -3,11 +3,19 @@
   "WorkspaceRootPath": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\full sail\\pp3\\agameinc\\cabin rush\\assets\\scripts\\ui\\exitgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\full sail\\pp3\\agameinc\\cabin rush\\assets\\scripts\\ui\\loadingbarmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\loadingbarmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\full sail\\pp3\\agameinc\\cabin rush\\assets\\scripts\\ui\\sceneloaderdininghall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\sceneloaderdininghall.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\assets\\scripts\\ui\\exitgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\exitgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|c:\\full sail\\pp3\\agameinc\\cabin rush\\assets\\scripts\\ui\\uiaudiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\assets\\scripts\\ui\\uiaudiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{47634B9B-9865-D5F7-C3C7-E80D2C76FAB4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\uiaudiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -55,19 +63,48 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ExitGame.cs",
-              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\ExitGame.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\ExitGame.cs",
-              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\ExitGame.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UI\\ExitGame.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAGAAAAAAAAAA==",
+              "Title": "LoadingBarManager.cs",
+              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\LoadingBarManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\LoadingBarManager.cs",
+              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\LoadingBarManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\LoadingBarManager.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAUwDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-26T18:05:27.16Z",
+              "WhenOpened": "2025-09-27T14:13:58.858Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "SceneLoaderDiningHall.cs",
+              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\SceneLoaderDiningHall.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\SceneLoaderDiningHall.cs",
+              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\SceneLoaderDiningHall.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\SceneLoaderDiningHall.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-27T13:17:02.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ExitGame.cs",
+              "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\ExitGame.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\ExitGame.cs",
+              "ToolTip": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\ExitGame.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\ExitGame.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T18:05:27.16Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "UIAudioManager.cs",
               "DocumentMoniker": "C:\\Full Sail\\PP3\\AGameInc\\Cabin Rush\\Assets\\Scripts\\UI\\UIAudioManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\UIAudioManager.cs",
@@ -75,8 +112,7 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\UIAudioManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-26T16:00:41.841Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-26T16:00:41.841Z"
             }
           ]
         }

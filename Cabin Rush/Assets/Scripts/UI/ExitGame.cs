@@ -4,7 +4,6 @@ public class ExitGame : MonoBehaviour
 {
     public void QuitGame()
     {
-        Debug.Log("Exit button clicked. Quitting game...");
 
 #if UNITY_EDITOR
 
