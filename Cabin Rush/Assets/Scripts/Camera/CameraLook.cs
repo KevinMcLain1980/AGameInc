@@ -6,10 +6,10 @@ public class CameraLook : MonoBehaviour
     [Header("Look Settings")]
     [SerializeField] private float sensitivity = 2f;
     [SerializeField] private Transform playerBody;
+    [SerializeField] private float strafeSpeed = 3f; // units per second
 
     private InputAction lookAction;
     private Vector2 lookInput;
-    private float xRotation = 0f;
 
     private void Awake()
     {
@@ -17,6 +17,9 @@ public class CameraLook : MonoBehaviour
         {
             Debug.LogError("CameraLook: Player body reference not assigned.");
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnEnable()
@@ -39,13 +42,25 @@ public class CameraLook : MonoBehaviour
     {
         if (playerBody == null) return;
 
+        // Mouse-based horizontal rotation
         float mouseX = lookInput.x * sensitivity * Time.deltaTime;
-        float mouseY = lookInput.y * sensitivity * Time.deltaTime;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+
+        // Shift + Arrow Key Strafing
+        if (Keyboard.current.leftShiftKey.isPressed)
+        {
+            Vector3 strafeDirection = Vector3.zero;
+
+            if (Keyboard.current.leftArrowKey.isPressed)
+            {
+                strafeDirection = -playerBody.right;
+            }
+            else if (Keyboard.current.rightArrowKey.isPressed)
+            {
+                strafeDirection = playerBody.right;
+            }
+
+            playerBody.position += strafeDirection * strafeSpeed * Time.deltaTime;
+        }
     }
 }

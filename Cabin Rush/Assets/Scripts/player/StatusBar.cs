@@ -8,6 +8,9 @@ public class StatusBar : MonoBehaviour
 
     private void Update()
     {
-        fillImage.fillAmount = stat.Normalized;
+        if (stat != null && fillImage != null)
+        {
+            fillImage.fillAmount = stat.Normalized;
+        }
     }
 }

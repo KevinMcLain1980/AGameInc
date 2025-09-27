@@ -1,52 +1,35 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-[CreateAssetMenu(menuName = "Player/Stat")]
-public class PlayerStat : ScriptableObject
+public class PlayerStat : MonoBehaviour
 {
-    [Header("Stat Values")]
+    [Header("Stat Configuration")]
+    [SerializeField] private string statName = "Health";
     [SerializeField] private float maxValue = 100f;
+    [SerializeField] private float minValue = 0f;
     [SerializeField] private float currentValue = 100f;
 
-    public float Max => maxValue;
+    public float CurrentValue => currentValue;
+    public float MaxValue => maxValue;
+    public float MinValue => minValue;
+    public string StatName => statName;
+    public float Normalized => Mathf.InverseLerp(minValue, maxValue, currentValue);
 
-
-    // Clamp current value between 0 and max
-    public float Current
+    public void SetValue(float value)
     {
-        get => Mathf.Clamp(currentValue, 0f, maxValue);
-        set => currentValue = Mathf.Clamp(value, 0f, maxValue);
-    }
-
-    public float Normalized => Mathf.Clamp01(Current / maxValue);
-
-    // Static registry of all PlayerStat instances
-    private static readonly List<PlayerStat> allStats = new List<PlayerStat>();
-
-    private void OnEnable()
-    {
-        if (!allStats.Contains(this))
-            allStats.Add(this);
-
-        if (currentValue <= 0)
-            currentValue = maxValue;
-    }
-
-    private void OnDisable()
-    {
-        allStats.Remove(this);
+        currentValue = Mathf.Clamp(value, minValue, maxValue);
     }
 
     /// <summary>
-    /// Modify the current stat value by a given amount.
+    /// Modifies the stat by a given amount. Negative values reduce the stat.
     /// </summary>
-    public void Modify(float amount)
+    public void ModifyStat(float amount)
     {
-        Current += amount;
+        currentValue += amount;
+        currentValue = Mathf.Clamp(currentValue, minValue, maxValue);
     }
 
     /// <summary>
-    /// Reset this stat to its maximum value.
+    /// Resets the stat to its maximum value.
     /// </summary>
     public void ResetStat()
     {
@@ -54,14 +37,10 @@ public class PlayerStat : ScriptableObject
     }
 
     /// <summary>
-    /// Reset all registered PlayerStat instances to their maximum values.
-    /// Call this at game start or game end.
+    /// Returns true if the stat has reached its minimum.
     /// </summary>
-    public static void ResetAllStats()
+    public bool IsDepleted()
     {
-        foreach (var stat in allStats)
-        {
-            stat.ResetStat();
-        }
+        return currentValue <= minValue;
     }
 }

@@ -3,75 +3,72 @@ using UnityEngine.UI;
 
 public class DrownPlayer : MonoBehaviour
 {
-    [Header("Player Oxygen Stat")]
-    [SerializeField] private PlayerStat oxygen;
-
-    [Header("Drain & Regen Settings")]
-    [SerializeField] private float drainRate = 5f;
-    [SerializeField] private float regenRate = 10f;
-
-    [Header("Animation")]
-    [SerializeField] private Animator animator;
-
-    [Header("UI Overlay")]
+    [Header("Water UI Overlay")]
     [SerializeField] private Image waterOverlay;
 
-    private bool isDrowning = false;
-    private bool isInWater = false;
+    [Header("Oxygen Settings")]
+    [SerializeField] private PlayerStat oxygenStat;
+    [SerializeField] private float oxygenDrainRate = 5f;
 
-    void Start()
+    private bool isUnderwater = false;
+    private bool isDrowning = false;
+
+    private void Update()
     {
-        if (oxygen != null)
-            oxygen.ResetStat();
+        if (isUnderwater && oxygenStat != null)
+        {
+            // Drain oxygen over time
+            float amount = oxygenDrainRate * Time.deltaTime;
+            oxygenStat.SetValue(oxygenStat.CurrentValue);
+
+            // Trigger drowning when oxygen hits zero
+            if (oxygenStat.CurrentValue <= 0f && !isDrowning)
+            {
+                StartDrowning();
+            }
+        }
     }
 
-    void Update()
+    public void SetWaterOverlay(bool state)
     {
-        if (oxygen == null || isDrowning) return;
+        if (waterOverlay != null)
+            waterOverlay.enabled = state;
 
-        if (isInWater)
+        isUnderwater = state;
+
+        if (!state && oxygenStat != null)
         {
-            oxygen.Current -= drainRate * Time.deltaTime;
-
-            if (oxygen.Current <= 0f)
-            {
-                oxygen.Current = 0f;
-                isDrowning = true;
-                animator.SetTrigger("DrownDeath");
-            }
+            oxygenStat.ResetStat(); // Restore oxygen when exiting water
+            Debug.Log("Exited water: oxygen reset.");
         }
         else
         {
-            oxygen.Current += regenRate * Time.deltaTime;
-            if (oxygen.Current > oxygen.Max)
-                oxygen.Current = oxygen.Max;
+            Debug.Log("Entered water: starting oxygen drain.");
         }
     }
 
-
-    public void SetWaterOverlay(bool isActive)
+    private void StartDrowning()
     {
-        Debug.Log("SetWaterOverlay called: " + isActive);
-        if (waterOverlay != null)
-            waterOverlay.enabled = isActive;
-    }
+        isDrowning = true;
 
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("wat"))
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
         {
-            isInWater = true;
-            SetWaterOverlay(true);
+            animator.SetTrigger("Drowning");
         }
+
+        Debug.Log("Drowning started.");
     }
 
-    private void OnTriggerExit(Collider other)
+    // Called via Animation Event at end of Drowning animation
+    public void OnDrowningAnimationComplete()
     {
-        if (other.CompareTag("wat"))
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
         {
-            isInWater = false;
-            SetWaterOverlay(false);
+            animator.SetTrigger("Death");
         }
+
+        Debug.Log("Drowning animation complete. Death triggered.");
     }
 }
