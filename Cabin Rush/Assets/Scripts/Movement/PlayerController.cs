@@ -1,11 +1,14 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IOxygen
+public class PlayerController : MonoBehaviour, IOxygen, IRun
 {
     [SerializeField] private PlayerStateManager playerStateManager;
     [SerializeField] int Oxygen;
+    [SerializeField] int Stamina;
     public bool IsDead => IsDead;
+    public bool IsRunning;
 
     private void Update()
     {
@@ -39,5 +42,21 @@ public class PlayerController : MonoBehaviour, IOxygen
     public void takeOxygen(int amount)
     {
         Oxygen -= amount;
+    }
+
+    public void takeStamina(int amount)
+    {
+        if(Input.GetButtonDown("Sprint") && Stamina > 0)
+        {
+            Stamina -= amount;
+        }
+    }
+
+    IEnumerator DrainStamina(IRun r)
+    {
+        IsRunning = true;
+        r.takeStamina(2);
+        yield return new WaitForSeconds(1);
+        IsRunning = false;
     }
 }
