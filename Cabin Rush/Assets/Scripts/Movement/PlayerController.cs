@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IOxygen
 {
     [SerializeField] private PlayerStateManager playerStateManager;
+    [SerializeField] int Oxygen;
     public bool IsDead => IsDead;
 
     private void Update()
@@ -33,5 +34,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("HealthStat component not found on PlayerStateManager.");
         }
+    }
+
+    public void takeOxygen(int amount)
+    {
+        Oxygen -= amount;
     }
 }
