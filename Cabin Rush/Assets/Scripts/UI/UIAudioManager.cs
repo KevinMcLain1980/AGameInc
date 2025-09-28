@@ -9,6 +9,7 @@ public class UIAudioManager : MonoBehaviour
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayHover()
