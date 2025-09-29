@@ -9,6 +9,7 @@ public class LoadingBarManager : MonoBehaviour
     public GameObject startMenu;       // Assign Start Menu container
     public GameObject titleBanner;     // Assign Title Banner object
     public GameObject loadingScreen;   // Assign Loading Screen panel
+    public GameObject backButton;      // Assign Back Button object
     public Slider loadingBar;          // Assign Loading Bar slider
 
     [Header("Timing")]
@@ -19,7 +20,11 @@ public class LoadingBarManager : MonoBehaviour
     {
         // Hide Start Menu and Title Banner
         if (startMenu != null) startMenu.SetActive(false);
-        if (titleBanner != null) titleBanner.SetActive(false);
+        if (titleBanner != null) startMenu.SetActive(false);
+
+        // Hide Back Button if active
+        if (backButton != null && backButton.activeInHierarchy)
+            backButton.SetActive(false);
 
         // Show Loading Screen
         loadingScreen.SetActive(true);
