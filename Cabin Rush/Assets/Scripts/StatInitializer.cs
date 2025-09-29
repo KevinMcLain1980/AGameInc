@@ -4,7 +4,7 @@ public class StatInitializer : MonoBehaviour
 {
     [SerializeField] private PlayerStat health;
     [SerializeField] private PlayerStat stamina;
-    [SerializeField] private PlayerStat oxygen;
+    [SerializeField] public PlayerStat oxygen;
 
     private void Awake()
     {

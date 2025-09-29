@@ -1,5 +1,5 @@
 using UnityEngine;
-public class WaterRise : MonoBehaviour
+public class waterRise : MonoBehaviour
 {
     [SerializeField] private float riseSpeed = 1f;
     [SerializeField] private float maxHeight = 10f;
