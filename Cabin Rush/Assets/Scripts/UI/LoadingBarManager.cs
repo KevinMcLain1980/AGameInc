@@ -6,20 +6,25 @@ using System.Collections;
 public class LoadingBarManager : MonoBehaviour
 {
     [Header("UI References")]
-    public GameObject startMenu;       // Assign your Start Menu container
-    public GameObject titleBanner;     // Assign your TitleBanner object
-    public GameObject loadingScreen;   // Assign your LoadingScreen panel
-    public Slider loadingBar;          // Assign your LoadingBar slider
+    public GameObject startMenu;       // Assign Start Menu container
+    public GameObject titleBanner;     // Assign Title Banner object
+    public GameObject loadingScreen;   // Assign Loading Screen panel
+    public GameObject backButton;      // Assign Back Button object
+    public Slider loadingBar;          // Assign Loading Bar slider
 
     [Header("Timing")]
-    public float fillSpeed = 0.5f;
-    public float postFillDelay = 5f;
+    public float fillSpeed = 0.5f;     // Speed of bar fill
+    public float postFillDelay = 5f;   // Delay after bar reaches 100%
 
     public void LoadSceneAsync(string sceneName)
     {
         // Hide Start Menu and Title Banner
         if (startMenu != null) startMenu.SetActive(false);
-        if (titleBanner != null) titleBanner.SetActive(false);
+        if (titleBanner != null) startMenu.SetActive(false);
+
+        // Hide Back Button if active
+        if (backButton != null && backButton.activeInHierarchy)
+            backButton.SetActive(false);
 
         // Show Loading Screen
         loadingScreen.SetActive(true);
@@ -53,6 +58,7 @@ public class LoadingBarManager : MonoBehaviour
         // Wait after bar is full
         yield return new WaitForSeconds(postFillDelay);
 
+        // Activate the scene
         operation.allowSceneActivation = true;
     }
 }

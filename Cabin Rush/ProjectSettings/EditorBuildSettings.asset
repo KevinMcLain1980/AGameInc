@@ -17,6 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Deck.unity
     guid: d827bdf96b657ec47806f28c8b5d57f4
+  - enabled: 1
+    path: Assets/Scenes/LoadGame.unity
+    guid: 40c2688b512c475459393e0eaccea049
+  - enabled: 1
+    path: Assets/Scenes/LevelSelectScene.unity
+    guid: 335746a19251d364aba21bdae1800e04
+  - enabled: 1
+    path: Assets/Scenes/OptionsScene.unity
+    guid: f8a0a0cc22238b641a2b790c4c7d673c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
