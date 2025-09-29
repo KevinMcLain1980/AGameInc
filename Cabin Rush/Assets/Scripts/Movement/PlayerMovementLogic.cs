@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovementLogic : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 120f;
     [SerializeField] private float inputDeadzone = 0.2f;
 

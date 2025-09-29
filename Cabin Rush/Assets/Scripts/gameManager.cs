@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject MenuPause;
     [SerializeField] GameObject MenuWin;
     [SerializeField] GameObject MenuLose;
+    [SerializeField] TMP_Text distanceCountTxt;
 
     [Header("Player UI")]
     public Image playerHPBar;
@@ -18,21 +20,42 @@ public class GameManager : MonoBehaviour
     public Image playerOxygenBar;
     public GameObject PlayerDmgPanel;
 
+    [Header("Player Pos")]
+    public Transform playerPos;
+    private Vector3 StartPos;
+
     public bool isPaused;
     public GameObject Player;
+    public PlayerController playerScript;
 
-    private PlayerControls controls;
+    public PlayerControls controls;
     private float timeScaleOriginal;
     private int GameGoalCount;
 
+    
+
     private void Awake()
     {
+        if(playerPos != null)
+        {
+            StartPos = playerPos.position;
+        }
         instance = this;
         Player = GameObject.FindWithTag("Player");
         timeScaleOriginal = Time.timeScale;
 
         controls = new PlayerControls();
         controls.Player.Cancel.performed += ctx => HandlePauseToggle();
+        playerScript = Player.GetComponent<PlayerController>();
+    }
+
+    private void Update()
+    {
+        if (playerPos != null && distanceCountTxt != null)
+        {
+            float distance = Vector3.Distance(StartPos, playerPos.position);
+            distanceCountTxt.text = distance.ToString("F1");
+        }
     }
 
     private void OnEnable() => controls?.Enable();
@@ -80,6 +103,13 @@ public class GameManager : MonoBehaviour
             MenuActive = MenuWin;
             MenuActive.SetActive(true);
         }
+    }
+
+    public void Win()
+    {
+        statePause();
+        MenuActive = MenuWin;
+        MenuActive.SetActive(true);
     }
 
     public void Loser()
