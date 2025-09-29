@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IOxygen, IRun
+public class PlayerController : MonoBehaviour, IOxygen, IRun,IDamage
 {
     [SerializeField] private PlayerStateManager playerStateManager;
     [SerializeField] int Oxygen;
@@ -107,5 +107,10 @@ public class PlayerController : MonoBehaviour, IOxygen, IRun
             speed /= speedMul;
             IsRunning = false;
         }
+    }
+
+    public void takeDamage(int amount)
+    {
+      Hp -= amount;
     }
 }
