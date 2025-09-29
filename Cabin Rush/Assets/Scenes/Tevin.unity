@@ -275,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.61943
+      value: -6.6194153
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalPosition.y
@@ -283,7 +283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.25307
+      value: -10.253067
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalRotation.w
@@ -291,15 +291,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8920563020192923501, guid: 93de50860bf813d4ea2012d9578f7a45, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5579,6 +5579,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1289446872718298445, guid: 5ff2536327a9e4e42882dd0e02dbc550, type: 3}
+      propertyPath: Hp
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3309231516303541310, guid: 5ff2536327a9e4e42882dd0e02dbc550, type: 3}
       propertyPath: damageAudio
       value: 
@@ -6042,8 +6046,8 @@ AudioSource:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 325058511}
   - {fileID: 1592120135}
+  - {fileID: 325058511}
   - {fileID: 1490668042}
   - {fileID: 1108593877}
   - {fileID: 1160311830}
